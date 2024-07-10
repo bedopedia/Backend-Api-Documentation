@@ -1,0 +1,97 @@
+title: gradesSummary
+x-stoplight:
+  id: btsb42ioxlmvu
+type: object
+properties:
+  id:
+    type: integer
+    x-stoplight:
+      id: 6p4cjq2v2ckcy
+  student_id:
+    type: integer
+    x-stoplight:
+      id: 768o8b6lgj07i
+  student_name:
+    type: string
+    x-stoplight:
+      id: uyph6oxl0psxt
+  academic_year_id:
+    type: integer
+    x-stoplight:
+      id: sg48dldyldnua
+  academic_year_name:
+    type: string
+    x-stoplight:
+      id: qroikhijk02hj
+  course_id:
+    type: integer
+    x-stoplight:
+      id: gfd7pncrkq3we
+  course_name:
+    type: string
+    x-stoplight:
+      id: gdf2ycv2q89xa
+  main_grading_period_id:
+    type: integer
+    x-stoplight:
+      id: s75awmsbrv11o
+  main_grading_period_name:
+    type: string
+    x-stoplight:
+      id: q7d6a15msdzkj
+  main_grading_period_weight:
+    type: number
+    x-stoplight:
+      id: e1tsl23ao4yie
+  sub_grading_period_id:
+    type: integer
+    x-stoplight:
+      id: r0rcblr6kug8o
+  sub_grading_period_name:
+    type: string
+    x-stoplight:
+      id: cb7jpe9i85thp
+  sub_grading_period_weight:
+    type: number
+    x-stoplight:
+      id: b02jnuig6g39x
+  main_category_id:
+    type: integer
+    x-stoplight:
+      id: khplfnivxahwl
+  main_category_name:
+    type: string
+    x-stoplight:
+      id: sz2gzf6q9zdr6
+  main_category_weight:
+    type: number
+    x-stoplight:
+      id: 87ijxysodxdng
+  sub_category_id:
+    type: integer
+    x-stoplight:
+      id: kpfp7gc7bu09l
+  sub_category_name:
+    type: string
+    x-stoplight:
+      id: qy4nfmac1mtt0
+  sub_category_weight:
+    type: number
+    x-stoplight:
+      id: 2br0vaxu7894m
+  student_grade_in_sub_gategory:
+    type: number
+    x-stoplight:
+      id: l3cx2z342x19n
+  student_grade_in_category:
+    type: number
+    x-stoplight:
+      id: gpfy5qn8dk33l
+  student_grade_in_sub_grading_period:
+    type: number
+    x-stoplight:
+      id: 9ysol2tb87ofc
+  student_grade_in_main_grading_period:
+    type: number
+    x-stoplight:
+      id: mb0vqiclgbhah

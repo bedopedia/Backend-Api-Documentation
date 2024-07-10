@@ -1,0 +1,9 @@
+title: Error
+x-stoplight:
+  id: txx6jqniqdcxw
+type: object
+properties:
+  errors:
+    type: array
+    items:
+      type: string

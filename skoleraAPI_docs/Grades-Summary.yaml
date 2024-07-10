@@ -1,0 +1,186 @@
+openapi: 3.0.3
+x-stoplight:
+  id: 9kf7vfjc5712g
+info:
+  title: Grades Summary
+  version: '1.0'
+  description: API for managing grades summaries
+servers:
+  - url: 'http://localhost:3000'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+          scopes:
+            public_access: Public access
+            erp_access: ERP access  
+  schemas:
+    GradesSummary:
+      $ref: '../data/GradesSummary.yaml'
+    Errors:
+      $ref: '../data/Error.yaml'
+paths:
+  /grades_summaries:
+    get:
+      summary: Get all grades summaries
+      tags:
+        - GradesSummary
+      responses:
+        '200':
+          description: A list of social advisors
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/GradesSummary'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+    post:
+      summary: Create a new grades summary
+      tags:
+        - GradesSummary
+      requestBody:
+        description: Grades summary to create
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GradesSummary'
+      responses:
+        '201':
+          description: Grades summary created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GradesSummary'
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+  '/grades_summaries/{id}':
+    get:
+      summary: Get a grades summary by ID
+      tags:
+        - GradesSummary
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Grades summary details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GradesSummary'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '404':
+          description: Not found
+    patch:
+      summary: Update a grades summary by ID (partial)
+      tags:
+        - GradesSummary
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Grades summary data to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GradesSummary'
+      responses:
+        '204':
+          description: No content
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+    put:
+      summary: Update a grades summary by ID
+      tags:
+        - GradesSummary
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        description: Grades summary data to update
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GradesSummary'
+      responses:
+        '204':
+          description: No content
+        '422':
+          description: Unprocessable entity
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
+    delete:
+      summary: Delete a grades summary by ID
+      tags:
+        - GradesSummary
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: No content
+        '404':
+          description: Not found
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Errors'
