@@ -19,9 +19,12 @@ components:
             erp_access: ERP access  
   schemas:
     GradesSummary:
-      $ref: '../data/GradesSummary.yaml'
+      $ref: '../Data/GradesSummary.yaml'
     Errors:
-      $ref: '../data/Error.yaml'
+      $ref: '../Data/Error.yaml'
+security:
+  - OAuth2:
+      - public_access
 paths:
   /grades_summaries:
     get:
