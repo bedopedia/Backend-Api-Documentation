@@ -1,0 +1,157 @@
+title: Authentication
+x-stoplight:
+  id: 22w7nem9i4nuo
+type: object
+properties:
+  firstname:
+    type: string
+    x-stoplight:
+      id: k2irl1m4gbhe1
+  lastname:
+    type: string
+    x-stoplight:
+      id: yrxnbmgrgdeca
+  id:
+    type: integer
+  email:
+    type: string
+    x-stoplight:
+      id: xtacd2ghgmrjb
+  username:
+    type: string
+    x-stoplight:
+      id: yppqk88f1gexc
+  avatar_url:
+    type: string
+    x-stoplight:
+      id: of4dj6x3h982z
+  thumb_url:
+    type: string
+    x-stoplight:
+      id: eypkcilmjf60h
+  user_type:
+    type: string
+    x-stoplight:
+      id: 9b6zqgikxglf0
+  dateofbirth:
+    type: string
+    x-stoplight:
+      id: 4ooendis4k94i
+  country:
+    type: string
+    x-stoplight:
+      id: q2yyx8n4xoooh
+  city:
+    type: string
+    x-stoplight:
+      id: o0z8aiix27ut3
+  home_address:
+    type: string
+    x-stoplight:
+      id: tojggb223w4od
+  password:
+    type: string
+    x-stoplight:
+      id: o2djdtdd3eh2i
+  phone:
+    type: string
+    x-stoplight:
+      id: 29yojrdlj57e7
+  gender:
+    type: string
+    x-stoplight:
+      id: s5dp4gvkbrxcp
+  is_active:
+    type: boolean
+    x-stoplight:
+      id: ihcmcnjd6t1cf
+  last_sign_in_at:
+    type: string
+    x-stoplight:
+      id: iy5qrwzfc27xz
+  name:
+    type: string
+    x-stoplight:
+      id: kwm00k5ghbv6a
+  child_id:
+    type: integer
+    x-stoplight:
+      id: 6ydykf5y2kaaa
+  middlename:
+    type: string
+    x-stoplight:
+      id: vrvwutwzp2uq7
+  secondary_phone:
+    type: string
+    x-stoplight:
+      id: fiqoe0rgxtsb5
+  secondary_address:
+    type: string
+    x-stoplight:
+      id: wzpvk5bcnv630
+  locale:
+    type: string
+    x-stoplight:
+      id: gbhdu1l7owqmq
+  actable_id:
+    type: integer
+    x-stoplight:
+      id: ukhrbkcn9tw3c
+  actable_type:
+    type: string
+    x-stoplight:
+      id: wuvdtp6k3v2zx
+  theme_color:
+    type: string
+    x-stoplight:
+      id: uryc3fzqv9p1f
+  theme_type:
+    type: string
+    x-stoplight:
+      id: vw25dvyqalmi5
+  unseen_notifications:
+    type: integer
+    x-stoplight:
+      id: qzuk401tgu8k0
+  school_name:
+    type: string
+    x-stoplight:
+      id: 35mc0wlynm1l3
+  realtime_ip:
+    type: string
+    x-stoplight:
+      id: c5o64v7uaq7z0
+  parent_id:
+    type: integer
+    x-stoplight:
+      id: b0f95yezriewd
+  hide_grades:
+    type: string
+    x-stoplight:
+      id: 89xpal9gyi8mr
+  show_school_fees:
+    type: string
+    x-stoplight:
+      id: ikbnap6s17mqz
+  actions:
+    type: array
+    x-stoplight:
+      id: 9lufodnwya89k
+    items: {}
+  children:
+    type: string
+    x-stoplight:
+      id: v8oxy77a84jmh
+  role:
+    type: object
+    x-stoplight:
+      id: qsi990i8w9rtb
+    properties:
+      name:
+        type: string
+        x-stoplight:
+          id: t33za0y92f7qf
+      id:
+        type: integer
+        x-stoplight:
+          id: 0f48eqbyj1kxb

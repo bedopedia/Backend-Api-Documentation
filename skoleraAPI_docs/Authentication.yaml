@@ -1,0 +1,50 @@
+openapi: 3.0.3
+x-stoplight:
+  id: t7w7lptw6xoqr
+info:
+  title: Authentication
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+components:
+  schemas:
+    Authentication:
+      $ref: ../Data/Authentication.yaml
+    Error:
+      $ref: ../Data/Error.yaml
+paths:
+  /api/auth/sign_in:
+    post:
+      summary: Login
+      tags:
+        - Authentication
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                username:
+                  type: string
+                password:
+                  type: string
+      responses:
+        '200':
+          description: Login Successfully
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Authentication'
+              examples: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+              examples:
+                application/json:
+                  value:
+                    success: false
+                    errors: ["Invalid login credentials. Please try again."]
