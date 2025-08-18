@@ -1,0 +1,1611 @@
+openapi: 3.0.0
+info:
+  title: AI-Generated Questions
+  version: 1.0.0
+  description: |
+    1. ACL and Permissions Roles Allowed to Generate AI Questions:
+        - Teachers
+        - HODs
+        - Admins
+servers:
+  - url: '{{baseUrl}}'
+  - url: '{{baseUrl}} '
+  - url: '{{baseUrl}}}'
+  - {}
+paths:
+  '/question_bank/questions/ai_quotas/role/{role_type}':
+    parameters:
+      - name: role_type
+        in: path
+        required: true
+        schema:
+          deprecated: false
+    post:
+      summary: Set Role Quota
+      parameters: []
+      responses:
+        default:
+          headers: {}
+          description: Set Role Quota
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              quota: 100
+    get:
+      summary: Get Role Quota
+      parameters: []
+      responses:
+        '200':
+          headers: {}
+          description: New Request
+  '/question_bank/questions/ai_quotas/role/{role_type}/remaining':
+    parameters:
+      - name: role_type
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get Role Quota Remaining
+      parameters: []
+      responses:
+        '200':
+          headers: {}
+          description: Get Role Quota Remaining
+  '/question_bank/questions/ai_quotas/actable/{role}/{actable_id}':
+    parameters:
+      - name: role
+        in: path
+        required: true
+        example: teacher
+        schema:
+          deprecated: false
+          type: string
+      - name: actable_id
+        in: path
+        required: true
+        example: '12'
+        schema:
+          type: integer
+    post:
+      summary: Set Actable quota
+      parameters: []
+      responses:
+        '200':
+          headers: {}
+          description: Set Actable quota
+        default:
+          headers: {}
+          description: Set Actable quota
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              quota: 100
+    get:
+      summary: Get Actable Quota
+      parameters: []
+      responses:
+        '200':
+          headers: {}
+          description: '{{baseUrl}} /qb_questions/ai_quotas/actable/:role/:actable_id'
+  /api/question_bank/questions/ai_generated/persist:
+    parameters: []
+    post:
+      summary: Persist Question
+      parameters: []
+      responses:
+        '200':
+          headers: {}
+          description: Unprocessable entity
+        '400':
+          headers: {}
+          description: Bad Request
+        '422':
+          headers:
+            X-Frame-Options:
+              schema:
+                type: string
+              example: SAMEORIGIN
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            timezone:
+              schema:
+                type: string
+              example: Europe/Istanbul
+            days-left-for-payment-deadline:
+              schema:
+                type: string
+              example: NA
+            due-date-for-oldest-unpaid-installment:
+              schema:
+                type: string
+              example: NA
+            access-token:
+              schema:
+                type: string
+              example: m7j0btzQN666l-t4Nx2Y8A
+            token-type:
+              schema:
+                type: string
+              example: Bearer
+            client:
+              schema:
+                type: string
+              example: acjiB4ZGg1-iATzTPF_ZGA
+            expiry:
+              schema:
+                type: integer
+              example: '1785964637'
+            uid:
+              schema:
+                type: string
+              example: skolera@skolera.com
+            Content-Type:
+              schema:
+                type: string
+              example: application/json; charset=utf-8
+            Vary:
+              schema:
+                type: string
+              example: Origin
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache
+            X-Meta-Request-Version:
+              schema:
+                type: integer
+              example: 0.7.2
+            X-Request-Id:
+              schema:
+                type: string
+              example: eb4270d4-7c53-4148-acdf-ccef29185649
+            X-Runtime:
+              schema:
+                type: integer
+              example: '0.174969'
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: Failed to persist questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: integer
+            example:
+              ids:
+                - 123
+                - 124
+  /api/question_bank/questions/ai_generated/draft:
+    parameters: []
+    get:
+      summary: Get Unpersisted Questions
+      parameters: []
+      responses:
+        '422':
+          headers:
+            X-Frame-Options:
+              schema:
+                type: string
+              example: SAMEORIGIN
+            X-XSS-Protection:
+              schema:
+                type: integer
+              example: 1; mode=block
+            X-Content-Type-Options:
+              schema:
+                type: string
+              example: nosniff
+            timezone:
+              schema:
+                type: string
+              example: Europe/Istanbul
+            days-left-for-payment-deadline:
+              schema:
+                type: string
+              example: NA
+            due-date-for-oldest-unpaid-installment:
+              schema:
+                type: string
+              example: NA
+            access-token:
+              schema:
+                type: string
+              example: m7j0btzQN666l-t4Nx2Y8A
+            token-type:
+              schema:
+                type: string
+              example: Bearer
+            client:
+              schema:
+                type: string
+              example: acjiB4ZGg1-iATzTPF_ZGA
+            expiry:
+              schema:
+                type: integer
+              example: '1785964637'
+            uid:
+              schema:
+                type: string
+              example: skolera@skolera.com
+            Content-Type:
+              schema:
+                type: string
+              example: application/json; charset=utf-8
+            Vary:
+              schema:
+                type: string
+              example: Origin
+            Cache-Control:
+              schema:
+                type: string
+              example: no-cache
+            X-Meta-Request-Version:
+              schema:
+                type: integer
+              example: 0.7.2
+            X-Request-Id:
+              schema:
+                type: string
+              example: eb4270d4-7c53-4148-acdf-ccef29185649
+            X-Runtime:
+              schema:
+                type: integer
+              example: '0.174969'
+            Transfer-Encoding:
+              schema:
+                type: string
+              example: chunked
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+              example:
+                error: Failed to persist questions
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ids:
+                  type: array
+                  items:
+                    type: integer
+            example:
+              ids:
+                - 123
+                - 124
+  '/api/question_bank/questions/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          deprecated: false
+    patch:
+      summary: Update Question
+      parameters: []
+      responses:
+        '200':
+          headers: {}
+          description: Update Question
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              field: new value
+    delete:
+      summary: Delete Question
+      parameters: []
+      responses:
+        '204':
+          headers: {}
+          description: Delete Question
+  /api/question_bank/questions/bulk_destroy:
+    parameters: []
+    post:
+      summary: Bulk Destroy
+      parameters: []
+      responses:
+        default:
+          headers: {}
+          description: Bulk Destroy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                question_ids:
+                  type: array
+                  items:
+                    type: integer
+            example:
+              question_ids:
+                - 64
+                - 62
+  /api/question_bank/questions/data_sources/config:
+    parameters: []
+    get:
+      summary: Get Data Source
+      parameters: []
+      responses:
+        default:
+          headers: {}
+          description: Get Data Source
+    post:
+      summary: Set Data Source
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                online_data_enabled:
+                  type: boolean
+                own_data_enabled:
+                  type: boolean
+            example:
+              online_data_enabled: true
+              own_data_enabled: false
+  '/qb_questions/ai_quotas/actable/{role}/{actable_id}/remaining':
+    parameters:
+      - name: role
+        in: path
+        required: true
+        schema:
+          type: string
+      - name: actable_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get Actable Quota Remaining
+      parameters: []
+      responses:
+        '200':
+          headers: {}
+          description: Get Actable Quota Remaining
+  /api/question_bank/questions:
+    parameters: []
+    get:
+      summary: /Search_by_creator_name
+      parameters:
+        - name: search_by_creator_name
+          in: query
+          example: a
+          schema:
+            type: string
+        - name: Accept
+          in: query
+          required: false
+          example: application/json
+          schema:
+            type: string
+        - name: access-token
+          in: query
+          required: false
+          example: QNY58qxXu766x3qL3wbyjQ
+          schema:
+            type: string
+        - name: token-type
+          in: query
+          required: false
+          example: Bearer
+          schema:
+            type: string
+        - name: client
+          in: query
+          required: false
+          example: gVbvWxqcRBhm6bZh7OPsuw
+          schema:
+            type: string
+        - name: uid
+          in: query
+          required: false
+          example: skolera@skolera.com
+          schema:
+            type: string
+        - name: Accept
+          in: header
+          required: false
+          example: application/json
+          schema:
+            type: string
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  questions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        text:
+                          type: string
+                        type:
+                          type: string
+                        difficulty:
+                          type: string
+                        taxonomy_level:
+                          type: string
+                        points:
+                          type: string
+                        range:
+                          type: string
+                        correct_answer:
+                          type: string
+                        Additional fields:
+                          type: string
+                        metadata:
+                          type: object
+                          properties:
+                            model:
+                              type: string
+                            generated_at:
+                              type: string
+                        creator_id:
+                          type: integer
+                        creator_name:
+                          type: string
+                        creator_role:
+                          type: string
+                        ai_generated:
+                          type: boolean
+                        ai_icon_visible:
+                          type: boolean
+              example:
+                success: true
+                questions:
+                  - id: qui am
+                    text: ullamco elit
+                    type: in Ut
+                    difficulty: consectetur laboris est minim
+                    taxonomy_level: aute et enim incididunt sed
+                    points: in non
+                    range: sit amet nisi
+                    correct_answer: deserunt
+                    Additional fields: dolore eiusmod
+                    metadata:
+                      model: officia sit proident ea
+                      generated_at: aliquip eu exercitation ipsum
+                    creator_id: 960070
+                    creator_name: Ut officia
+                    creator_role: aute id elit
+                    ai_generated: true
+                    ai_icon_visible: false
+                  - id: cillum in pariatur nisi veniam
+                    text: culpa amet
+                    type: adipisicing cupidatat dolor Ut
+                    difficulty: qui in
+                    taxonomy_level: anim eu reprehenderit dolore
+                    points: in elit pariatur
+                    range: occaecat
+                    correct_answer: qui ullamco officia
+                    Additional fields: laborum amet labore
+                    metadata:
+                      model: proident aliquip mollit aute r
+                      generated_at: sunt
+                    creator_id: 40270317
+                    creator_name: velit id
+                    creator_role: sunt deserunt incididunt do in
+                    ai_generated: false
+                    ai_icon_visible: false
+  /api/question_bank/questions/generate_questions:
+    parameters: []
+    post:
+      summary: /generate_question
+      parameters:
+        - name: Content-Type
+          in: header
+          required: false
+          example: application/json
+          schema:
+            deprecated: false
+        - name: Accept
+          in: header
+          required: false
+          example: application/json
+          schema:
+            deprecated: false
+        - name: access-token
+          in: header
+          required: false
+          example: gxfkDTvzHEQP68BTGvDwPw
+          schema:
+            deprecated: false
+        - name: token-type
+          in: header
+          required: false
+          example: Bearer
+          schema:
+            deprecated: false
+        - name: client
+          in: header
+          required: false
+          example: 4RP0pWlmcFN1NOW5ITbUgw
+          schema:
+            deprecated: false
+        - name: uid
+          in: header
+          required: false
+          example: skolera@skolera.com
+          schema:
+            deprecated: false
+      responses:
+        '200':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+              example:
+                success: false
+        '400':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: application/json
+          description: |
+            Bad Request
+            {
+              "success": false,
+              "error": "Invalid parameters",
+              "status": 400
+            }
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  error:
+                    type: string
+                  status:
+                    type: integer
+              example:
+                success: true
+                error: m
+                status: 18955501
+        '429':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: text/plain
+          description: |
+            Too Many Requests
+            {
+              "status": 429
+              "success": false,
+              "error": "Rate limit exceeded",
+              "message": "You have exceeded you monthly limit",
+            }
+        '502':
+          headers:
+            Content-Type:
+              schema:
+                type: string
+              example: text/plain
+          description: |-
+            OpenAI API Error
+            {
+              "status": 502
+              "success": false,
+              "error": "External API error",
+              "message": "Error connecting to OpenAI service",
+            }
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example:
+              subject_id: 456
+              course_id: 123
+              difficulty: Easy
+              is_ai_generated: true
+              lang: en
+              num_of_answers: 4
+              num_of_questions: 10
+              objectives_ids: []
+              score: '90'
+              selected_own_source:
+                topic: Algebra Basics
+                subtopic: Linear Equations
+                lesson: Solving equations
+                items:
+                  - resource_type: quiz
+                    resource_id: 101
+                  - resource_type: assignment
+                    resource_id: 202
+                  - resource_type: course content
+                    resource_id: 303
+              type: MultipleChoice
+              use_online_data: false
+              use_own_data: true
+  '/api/lessons/{lesson_id}/resources':
+    parameters:
+      - name: lesson_id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get Lesson Resources
+      parameters: []
+      responses:
+        '200':
+          headers: {}
+          description: Get Lesson Resources
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resource_type:
+                  type: string
+            example:
+              resource_type: quiz||assignment||content
+  /api/auth/sign_in:
+    parameters: []
+    post:
+      summary: '{{baseUrl}}/api/auth/sign_in'
+      parameters: []
+      responses: {}
+  /api/courses:
+    parameters: []
+    get:
+      summary: Get courses
+      parameters:
+        - name: subject_id
+          in: query
+          required: false
+          example: '{id}'
+          schema:
+            deprecated: false
+      responses: {}
+  /api/courses/list:
+    parameters: []
+    get:
+      summary: Courses_ai_enable
+      parameters:
+        - name: page
+          in: query
+          required: false
+          example: '1'
+          schema:
+            type: integer
+        - name: per_page
+          in: query
+          required: false
+          example: '10'
+          schema:
+            type: integer
+        - name: by_ai_state
+          in: query
+          required: false
+          example: boolean
+          schema:
+            type: string
+      responses:
+        default:
+          headers: {}
+          description: Courses_ai_enable
+  '/api/courses/{course_id}/toggle_ai':
+    parameters:
+      - name: course_id
+        in: path
+        required: true
+        schema:
+          deprecated: false
+    put:
+      summary: Set Course ai_enabled/disabled
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema: {}
+            example: null
+  /api/courses/bulk_change_ai_status:
+    parameters: []
+    put:
+      summary: Bulk_AI_Enable/Disable
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: boolean
+                course_ids:
+                  type: array
+                  items:
+                    type: integer
+            example:
+              status: true
+              course_ids:
+                - 1
+                - 2
+                - 3
+                - 4
+  '/api/courses/{id}/assignment_accordion_chapters':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get Assignment Accordion Chapters
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  course_id:
+                    type: integer
+                  units:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        name:
+                          type: string
+                        id:
+                          type: integer
+                        lessons:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              name:
+                                type: string
+                              id:
+                                type: integer
+                              objectives:
+                                type: array
+                                items: {}
+            example:
+              - id: 10
+                name: General
+                course_id: 10
+                units:
+                  - name: General
+                    id: 10
+                    lessons:
+                      - name: General
+                        id: 10
+                        objectives: []
+              - id: 173
+                name: test db
+                course_id: 10
+                units:
+                  - name: test sub
+                    id: 168
+                    lessons:
+                      - name: '22'
+                        id: 171
+                        objectives: []
+              - id: 176
+                name: mm
+                course_id: 10
+                units:
+                  - name: h
+                    id: 172
+                    lessons: []
+  "/api/courses/{id}/chapters\n":
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get Chapters of Course
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                id:
+                  type: integer
+                name:
+                  type: string
+                code:
+                  type: string
+                course_groups:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      course_id:
+                        type: integer
+                      name:
+                        type: string
+                      created_at:
+                        type: string
+                        format: style
+                      updated_at:
+                        type: string
+                      course_group_type:
+                        nullable: true
+                      capacity:
+                        type: integer
+                      image:
+                        type: object
+                        properties:
+                          url:
+                            nullable: true
+                      policy:
+                        nullable: true
+                      deleted_at:
+                        nullable: true
+                      order:
+                        type: integer
+                      erp_batch_id:
+                        type: integer
+                      erp_course_id:
+                        type: integer
+                course_group_ids:
+                  type: array
+                  items:
+                    type: integer
+                scale_grades:
+                  type: object
+                  properties:
+                    type:
+                      type: string
+                    scales:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          title:
+                            type: string
+                          teacher_id:
+                            nullable: true
+                          created_at:
+                            type: string
+                            format: style
+                          updated_at:
+                            type: string
+                          course_id:
+                            type: integer
+                          grading_scale_id:
+                            nullable: true
+                          deleted_at:
+                            nullable: true
+                          scale_grades:
+                            type: array
+                            items:
+                              type: object
+                              properties:
+                                id:
+                                  type: integer
+                                high:
+                                  type: integer
+                                low:
+                                  type: integer
+                                grade:
+                                  type: string
+                                  format: utc-millisec
+                                scale_id:
+                                  type: integer
+                                deleted_at:
+                                  nullable: true
+                section_name:
+                  type: string
+                level_name:
+                  type: string
+                stage_name:
+                  type: string
+                total_grade:
+                  type: integer
+                pass_limit:
+                  type: integer
+                credit:
+                  type: integer
+                show_final_grade:
+                  type: boolean
+                icon_name:
+                  nullable: true
+                hod_id:
+                  type: integer
+                section_id:
+                  type: integer
+                week_lessons:
+                  type: array
+                  items: {}
+                course_grading_periods:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      start_date:
+                        type: string
+                        format: date
+                      end_date:
+                        type: string
+                        format: date
+                      created_at:
+                        type: string
+                        format: style
+                      updated_at:
+                        type: string
+                      level_id:
+                        nullable: true
+                      academic_term_id:
+                        type: integer
+                      deleted_at:
+                        nullable: true
+                      weight:
+                        nullable: true
+                      parent_id:
+                        nullable: true
+                      lock:
+                        type: boolean
+                      publish:
+                        type: boolean
+                      sub_grading_periods:
+                        type: array
+                        items: {}
+                created_at:
+                  type: string
+                  format: style
+                order:
+                  type: integer
+                calculated_in_total:
+                  type: boolean
+                hide:
+                  type: boolean
+                report_display_name:
+                  nullable: true
+                wiris_enabled:
+                  type: boolean
+                level_id:
+                  type: integer
+                subject_name:
+                  type: string
+                chapters:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      units:
+                        type: array
+                        items:
+                          type: object
+                          properties:
+                            order:
+                              type: integer
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            lessons:
+                              type: array
+                              items:
+                                type: object
+                                properties:
+                                  order:
+                                    type: integer
+                                  id:
+                                    type: integer
+                                  name:
+                                    type: string
+                                  description:
+                                    nullable: true
+                                  objectives:
+                                    type: array
+                                    items: {}
+                                  unit_id:
+                                    type: integer
+                                  date:
+                                    type: string
+                                    format: date
+                                  lesson_plans_count:
+                                    type: integer
+                                  last_lesson_plan_name_count:
+                                    nullable: true
+                            description:
+                              nullable: true
+                      course_id:
+                        type: integer
+                      course_name:
+                        type: string
+                      description:
+                        nullable: true
+                      order:
+                        type: integer
+                      lock:
+                        type: boolean
+                teachers:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      firstname:
+                        type: string
+                      lastname:
+                        type: string
+                      avatar_url:
+                        type: string
+                      thumb_url:
+                        type: string
+                      user_type:
+                        type: string
+                      name:
+                        type: string
+                      gender:
+                        type: string
+                      name_with_title:
+                        type: string
+                      actable_id:
+                        type: integer
+                      user_id:
+                        type: integer
+                      attendances:
+                        nullable: true
+                      username:
+                        type: string
+                      character_name:
+                        type: string
+            example:
+              id: 10
+              name: English(G01)
+              code: ENG-G01
+              course_groups:
+                - id: 47
+                  course_id: 10
+                  name: A
+                  created_at: '2025-02-12 14:22:29'
+                  updated_at: '2025-02-12 14:22:29'
+                  course_group_type: null
+                  capacity: 50
+                  image:
+                    url: null
+                  policy: null
+                  deleted_at: null
+                  order: 0
+                  erp_batch_id: 8
+                  erp_course_id: 23
+                - id: 58
+                  course_id: 10
+                  name: B
+                  created_at: '2025-02-12 14:23:17'
+                  updated_at: '2025-02-12 14:23:17'
+                  course_group_type: null
+                  capacity: 50
+                  image:
+                    url: null
+                  policy: null
+                  deleted_at: null
+                  order: 0
+                  erp_batch_id: 9
+                  erp_course_id: 23
+                - id: 310
+                  course_id: 10
+                  name: Transfer
+                  created_at: '2025-03-26 10:43:11'
+                  updated_at: '2025-06-15 11:33:09'
+                  course_group_type: null
+                  capacity: 50
+                  image:
+                    url: null
+                  policy: '<p><img src="https://s3-eu-west-1.amazonaws.com/m-skolera-dev-bucket/uploads/Public/2025-06-15%2008%3A33%3A04%20%2B0000/WhatsApp%20Image%202025-04-29%20at%2014.28.50_d7ad1055.jpg" alt="" width="576" height="1280" /></p>'
+                  deleted_at: null
+                  order: 0
+                  erp_batch_id: 33
+                  erp_course_id: 23
+              course_group_ids:
+                - 47
+                - 58
+                - 310
+              scale_grades:
+                type: both
+                scales:
+                  - id: 888
+                    title: gpa
+                    teacher_id: null
+                    created_at: '2025-05-26 00:16:28'
+                    updated_at: '2025-05-26 00:16:28'
+                    course_id: 10
+                    grading_scale_id: null
+                    deleted_at: null
+                    scale_grades:
+                      - id: 7877
+                        high: 49
+                        low: 0
+                        grade: '0'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7878
+                        high: 54
+                        low: 49
+                        grade: '1'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7879
+                        high: 59
+                        low: 54
+                        grade: '1.3'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7880
+                        high: 64
+                        low: 59
+                        grade: '1.7'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7881
+                        high: 69
+                        low: 64
+                        grade: '2'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7882
+                        high: 74
+                        low: 69
+                        grade: '2.3'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7883
+                        high: 79
+                        low: 74
+                        grade: '2.7'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7884
+                        high: 84
+                        low: 79
+                        grade: '3'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7885
+                        high: 89
+                        low: 84
+                        grade: '3.3'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7886
+                        high: 94
+                        low: 89
+                        grade: '3.7'
+                        scale_id: 888
+                        deleted_at: null
+                      - id: 7887
+                        high: 100
+                        low: 94
+                        grade: '4'
+                        scale_id: 888
+                        deleted_at: null
+                  - id: 889
+                    title: letter
+                    teacher_id: null
+                    created_at: '2025-05-26 00:16:28'
+                    updated_at: '2025-05-26 00:16:28'
+                    course_id: 10
+                    grading_scale_id: null
+                    deleted_at: null
+                    scale_grades:
+                      - id: 7888
+                        high: 49
+                        low: 0
+                        grade: F
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7889
+                        high: 54
+                        low: 49
+                        grade: D
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7890
+                        high: 59
+                        low: 54
+                        grade: D+
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7891
+                        high: 64
+                        low: 59
+                        grade: C
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7892
+                        high: 69
+                        low: 64
+                        grade: C+
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7893
+                        high: 74
+                        low: 69
+                        grade: B-
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7894
+                        high: 79
+                        low: 74
+                        grade: B
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7895
+                        high: 84
+                        low: 79
+                        grade: B+
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7896
+                        high: 89
+                        low: 84
+                        grade: A-
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7897
+                        high: 94
+                        low: 89
+                        grade: A
+                        scale_id: 889
+                        deleted_at: null
+                      - id: 7898
+                        high: 100
+                        low: 94
+                        grade: A+
+                        scale_id: 889
+                        deleted_at: null
+              section_name: AM
+              level_name: Grade 01
+              stage_name: Elementary
+              total_grade: 100
+              pass_limit: 50
+              credit: 50
+              show_final_grade: false
+              icon_name: null
+              hod_id: 16
+              section_id: 4
+              week_lessons: []
+              course_grading_periods:
+                - id: 15
+                  name: New Semester
+                  start_date: '2025-05-21'
+                  end_date: '2025-09-10'
+                  created_at: '2025-05-21 09:48:02'
+                  updated_at: '2025-05-21 09:48:02'
+                  level_id: null
+                  academic_term_id: 5
+                  deleted_at: null
+                  weight: null
+                  parent_id: null
+                  lock: false
+                  publish: false
+                  sub_grading_periods: []
+              created_at: '2025-02-12 13:51:33'
+              order: 0
+              calculated_in_total: true
+              hide: false
+              report_display_name: null
+              wiris_enabled: true
+              level_id: 6
+              subject_name: Sync 2
+              chapters:
+                - id: 10
+                  name: General
+                  units:
+                    - order: 0
+                      id: 10
+                      name: General
+                      lessons:
+                        - order: 0
+                          id: 10
+                          name: General
+                          description: null
+                          objectives: []
+                          unit_id: 10
+                          date: '2025-02-09'
+                          lesson_plans_count: 0
+                          last_lesson_plan_name_count: null
+                      description: null
+                  course_id: 10
+                  course_name: English(G01)
+                  description: null
+                  order: 0
+                  lock: true
+                - id: 173
+                  name: test db
+                  units:
+                    - order: 0
+                      id: 168
+                      name: test sub
+                      lessons:
+                        - order: 0
+                          id: 171
+                          name: '22'
+                          description: null
+                          objectives: []
+                          unit_id: 168
+                          date: '2025-07-27'
+                          lesson_plans_count: 0
+                          last_lesson_plan_name_count: null
+                      description: null
+                  course_id: 10
+                  course_name: English(G01)
+                  description: ''
+                  order: 1
+                  lock: false
+                - id: 176
+                  name: mm
+                  units:
+                    - order: 0
+                      id: 172
+                      name: h
+                      lessons: []
+                      description: null
+                  course_id: 10
+                  course_name: English(G01)
+                  description: ''
+                  order: 2
+                  lock: false
+              teachers:
+                - id: 3
+                  firstname: Nada
+                  lastname: Ali
+                  avatar_url: /fallback/user/default_female.jpg
+                  thumb_url: /fallback/user/thumb_default_female.jpg
+                  user_type: teacher
+                  name: Nada Ali
+                  gender: female
+                  name_with_title: Ms. Nada Ali
+                  actable_id: 3
+                  user_id: 1257
+                  attendances: null
+                  username: SK004
+                  character_name: deer
+                - id: 9
+                  firstname: ahmed
+                  lastname: mohamed
+                  avatar_url: /fallback/user/default_female.jpg
+                  thumb_url: /fallback/user/thumb_default_female.jpg
+                  user_type: teacher
+                  name: ahmed mohamed
+                  gender: female
+                  name_with_title: Ms. ahmed mohamed
+                  actable_id: 9
+                  user_id: 1265
+                  attendances: null
+                  username: E10022
+                  character_name: fox
+  '/api/courses/{id}':
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+    get:
+      summary: Get Course Details
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  units:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        order:
+                          type: integer
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        lessons:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              order:
+                                type: integer
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              description:
+                                nullable: true
+                              objectives:
+                                type: array
+                                items: {}
+                              unit_id:
+                                type: integer
+                              date:
+                                type: string
+                                format: date
+                              lesson_plans_count:
+                                type: integer
+                              last_lesson_plan_name_count:
+                                nullable: true
+                        description:
+                          nullable: true
+                  course_id:
+                    type: integer
+                  course_name:
+                    type: string
+                  description:
+                    nullable: true
+                  order:
+                    type: integer
+                  lock:
+                    type: boolean
+            example:
+              - id: 10
+                name: General
+                units:
+                  - order: 0
+                    id: 10
+                    name: General
+                    lessons:
+                      - order: 0
+                        id: 10
+                        name: General
+                        description: null
+                        objectives: []
+                        unit_id: 10
+                        date: '2025-02-09'
+                        lesson_plans_count: 0
+                        last_lesson_plan_name_count: null
+                    description: null
+                course_id: 10
+                course_name: English(G01)
+                description: null
+                order: 0
+                lock: true
+              - id: 173
+                name: test db
+                units:
+                  - order: 0
+                    id: 168
+                    name: test sub
+                    lessons:
+                      - order: 0
+                        id: 171
+                        name: '22'
+                        description: null
+                        objectives: []
+                        unit_id: 168
+                        date: '2025-07-27'
+                        lesson_plans_count: 0
+                        last_lesson_plan_name_count: null
+                    description: null
+                course_id: 10
+                course_name: English(G01)
+                description: ''
+                order: 1
+                lock: false
+              - id: 176
+                name: mm
+                units:
+                  - order: 0
+                    id: 172
+                    name: h
+                    lessons: []
+                    description: null
+                course_id: 10
+                course_name: English(G01)
+                description: ''
+                order: 2
+                lock: false
+  "/api/school/configurations/question_bank_enabled\n":
+    parameters: []
+    get:
+      summary: Check if AI Question Generation is Enabled for School
+      parameters: []
+      responses: {}
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                ai_question_is_enabled:
+                  type: boolean
+            example:
+              ai_question_is_enabled: true

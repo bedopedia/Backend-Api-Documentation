@@ -1,0 +1,99 @@
+openapi: 3.0.3
+info:
+  title: Forward Message
+  version: '1.0'
+  description: API for forwarding messages 
+servers:
+  - url: 'http://localhost:3000/teacher_hub/forward_message'
+components:
+  securitySchemes:
+    OAuth2:
+      type: oauth2
+      flows:
+        clientCredentials:
+          tokenUrl: /oauth/token
+paths:
+  /teacher_hub/forward_message:
+    post:
+      summary: Forward a message thread
+      operationId: forwardMessageThread
+      tags:
+        - TeacherHub
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                message_thread:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                      example: Chat 1
+                    creator_id:
+                      type: integer
+                      example: 152
+                    last_added_date:
+                      type: string
+                      format: date-time
+                      example: 2025-04-07T08:45:37Z
+                    tag:
+                      type: string
+                      example: Tag 1
+                    messages_attributes:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          body:
+                            type: string
+                            example: Forwarded Message
+                          user_id:
+                            type: integer
+                            example: 152
+                          is_forwarded:
+                            type: boolean
+                            example: false
+      responses:
+        '201':
+          description: Message thread forwarded successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  last_added_date:
+                    type: string
+                    format: date-time
+                  is_read:
+                    type: boolean
+                  is_forwarded:
+                    type: boolean
+                  messages:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        body:
+                          type: string
+                        thread_id:
+                          type: integer
+                        user:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+        '401':
+          description: Unauthorized - authentication required
+        '422':
+          description: Unprocessable Entity - validation or save failed

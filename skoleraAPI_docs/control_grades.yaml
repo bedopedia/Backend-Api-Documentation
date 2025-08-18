@@ -1,0 +1,190 @@
+openapi: 3.0.1
+x-stoplight:
+  id: 80u08g5dlng56
+info:
+  version: 1.0.0
+  title: Skolera
+  description: Skolera API
+paths:
+  '/api/users/{user_id}/has_control_grades_permission':
+    get:
+      summary: "\U0001F50D Check User Permission"
+      description: Check if a user has permission to control grades.
+      parameters:
+        - name: user_id
+          in: path
+          required: true
+          schema:
+            type: integer
+          description: The ID of the user
+      responses:
+        '200':
+          description: User permission status
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  has_permission:
+                    type: boolean
+                  message:
+                    type: string
+              examples:
+                hasPermission:
+                  summary: User has permission
+                  value:
+                    has_permission: true
+                    message: User has control grades permission
+                noPermission:
+                  summary: User does not have permission
+                  value:
+                    has_permission: false
+                    message: User does not have control grades permission
+        '404':
+          description: User not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: User with ID 999 not found
+      deprecated: false
+      security: []
+  '/api/courses/{course_id}/course_groups/{course_group_id}/control_grades_set':
+    post:
+      summary: ✅ Enable Grade Control
+      description: Enable grade control for a specific resource in a course group.
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: course_group_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resource_type:
+                  type: string
+                  enum:
+                    - quiz
+                    - assignment
+                    - grade_item
+                resource_id:
+                  type: integer
+              required:
+                - resource_type
+                - resource_id
+      responses:
+        '200':
+          description: Resource successfully added to control
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  controlled:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                controlled: true
+                message: Resource added to grades control successfully
+        '404':
+          description: Course group or resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+              example:
+                message: Course group or resource not found
+      deprecated: false
+      security: []
+  '/api/courses/{course_id}/course_groups/{course_group_id}/control_grades_reset':
+    post:
+      summary: ❌ Disable Grade Control
+      description: Disable grade control for a specific resource in a course group.
+      parameters:
+        - name: course_id
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: course_group_id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                resource_type:
+                  type: string
+                  enum:
+                    - quiz
+                    - assignment
+                    - grade_item
+                resource_id:
+                  type: integer
+              required:
+                - resource_type
+                - resource_id
+      responses:
+        '200':
+          description: Resource successfully removed from control
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  controlled:
+                    type: boolean
+                  message:
+                    type: string
+              example:
+                controlled: false
+                message: Resource removed from grades control successfully
+        '404':
+          description: Course group or resource not found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  data:
+                    type: object
+                    nullable: true
+                  message:
+                    type: string
+                  errors:
+                    type: array
+                    items:
+                      type: string
+              example:
+                success: false
+                data: null
+                message: Course group or resource not found
+                errors:
+                  - Resource not currently under grades control
+      deprecated: false
+      security: []
