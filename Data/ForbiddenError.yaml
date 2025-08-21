@@ -1,0 +1,59 @@
+type: object
+properties:
+  type:
+    type: string
+  properties:
+    type: object
+    properties:
+      error:
+        type: object
+        properties:
+          type:
+            type: string
+          properties:
+            type: object
+            properties:
+              code:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  example:
+                    type: integer
+              message:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  example:
+                    type: string
+              details:
+                type: object
+                properties:
+                  type:
+                    type: string
+                  example:
+                    type: string
+          required:
+            type: array
+            items:
+              type: string
+x-examples:
+  Example 1:
+    type: object
+    properties:
+      error:
+        type: object
+        properties:
+          code:
+            type: integer
+            example: 403
+          message:
+            type: string
+            example: Access denied
+          details:
+            type: string
+            example: You don't have permission to access this resource
+        required:
+          - code
+          - message

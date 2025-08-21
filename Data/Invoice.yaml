@@ -1,0 +1,37 @@
+title: Invoice
+x-stoplight:
+  id: 3y3mvtmk9putx
+type: object
+properties:
+  student_erp_id:
+    type: integer
+    x-stoplight:
+      id: 2s6lr9ubdakqc
+  number:
+    type: string
+    x-stoplight:
+      id: oelncagaskcam
+  total_amount:
+    type: number
+    x-stoplight:
+      id: 145l3uy6ez3gt
+  amount_due:
+    type: number
+    x-stoplight:
+      id: gjd490esf34zb
+  due_date:
+    type: string
+    x-stoplight:
+      id: o5k4j044zzvjt
+  status:
+    type: integer
+    x-stoplight:
+      id: s1dmc0vywf0z6
+  currency_code:
+    type: string
+    x-stoplight:
+      id: ir1gtgprv1x5l
+  erp_id:
+    type: integer
+    x-stoplight:
+      id: xvqdsfavfpwxw
