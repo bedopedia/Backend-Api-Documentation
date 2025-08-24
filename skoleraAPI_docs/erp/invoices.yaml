@@ -40,6 +40,13 @@ paths:
                         due_date: '2024-03-15'
                         status_id: 1
                         last_updated_at: '2024-01-15T10:00:00Z'
+                      - student_id: 2
+                        invoice_number: INV-2024-002
+                        total_amount: 2000
+                        amount_due: 2000
+                        due_date: '2024-03-20'
+                        status_id: 2
+                        last_updated_at: '2024-01-16T11:30:00Z'
                 properties:
                   students:
                     type: array
@@ -74,10 +81,12 @@ paths:
                           type: number
                         due_date:
                           type: string
+                          format: date
                         status_id:
                           type: integer
                         last_updated_at:
                           type: string
+                          format: date
         '401':
           description: Unauthorized
           content:
@@ -90,18 +99,6 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
-        '422':
-          description: Unprocessable Entity (WebDAV)
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/ValidationError.yaml
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/InternalServerError.yaml
       operationId: get-api-invoices
       parameters:
         - schema:
@@ -147,6 +144,14 @@ paths:
             type: string
           in: query
           name: 'q[student_id]'
+        - schema:
+            type: string
+          in: query
+          name: 'q[total_amount]'
+        - schema:
+            type: string
+          in: query
+          name: 'q[amount_due]'
       description: |-
         Retrieve a list of invoices with support for sorting, filtering, pagination, and date range filtering. By default, invoices are filtered and sorted by due date in descending order.
         The response includes students and statuses lists for frontend dropdown filters, and invoices with reference IDs that map to these lists.
@@ -157,43 +162,7 @@ paths:
       responses:
         '201':
           description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    id: 123
-                    student_erp_id: 12345
-                    number: INV-2024-001
-                    total_amount: 1500
-                    amount_due: 1500
-                    due_date: '2024-03-15'
-                    status_id: 1
-                    currency_code: USD
-                    erp_id: 456
-                    created_at: '2024-01-15T10:00:00Z'
-                properties:
-                  student_erp_id:
-                    type: integer
-                  id:
-                    type: integer
-                  number:
-                    type: string
-                  total_amount:
-                    type: number
-                  amount_due:
-                    type: number
-                  due_date:
-                    type: string
-                  status_id:
-                    type: integer
-                  currency_code:
-                    type: string
-                  erp_id:
-                    type: integer
-                  created_at:
-                    type: string
+          content: {}
         '401':
           description: Unauthorized
           content:
@@ -208,33 +177,68 @@ paths:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
                 description: user ont have permission
-        '409':
-          description: Conflict
+        '406':
+          description: Not Acceptable
           content:
             application/json:
               schema:
-                $ref: ../../Data/ConflictError.yaml
-                description: invoice number existing before
-        '422':
-          description: Unprocessable Entity (WebDAV)
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/ValidationError.yaml
-                description: |-
-                  Required fields missed (student_erp_id, number, total_amount, etc.)
-                  Invalid data types
-                  Negative amounts (total_amount, amount_due)
-                  Invalid date format in due_date
-                  Invalid status_id
-                  Duplicate invoice number
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/InternalServerError.yaml
-                description: Server error
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      student_erp_id:
+                        type: array
+                        items:
+                          type: string
+                      number:
+                        type: array
+                        items:
+                          type: string
+                      total_amount:
+                        type: array
+                        items:
+                          type: string
+                      amount_due:
+                        type: array
+                        items:
+                          type: string
+                      due_date:
+                        type: array
+                        items:
+                          type: string
+                      status_id:
+                        type: array
+                        items:
+                          type: string
+                      currency_code:
+                        type: array
+                        items:
+                          type: string
+                      erp_id:
+                        type: array
+                        items:
+                          type: string
+                x-examples:
+                  Example 1:
+                    errors:
+                      student_erp_id:
+                        - Student ERP ID is required
+                      number:
+                        - Invoice number must be unique
+                        - Invoice number is required
+                      total_amount:
+                        - Total amount must be greater than 0
+                      amount_due:
+                        - Amount due cannot exceed total amount
+                      due_date:
+                        - Due date must be in format DD/MM/YYYY
+                      status_id:
+                        - Invalid status ID
+                      currency_code:
+                        - Currency code must be a valid ISO code
+                      erp_id:
+                        - ERP ID is required
       requestBody:
         content:
           application/json:
@@ -261,6 +265,7 @@ paths:
                   type: number
                 due_date:
                   type: string
+                  format: date
                 status_id:
                   type: integer
                   x-stoplight:
@@ -270,50 +275,14 @@ paths:
                 erp_id:
                   type: integer
       description: Create/sync invoice from ERP system to LMS for real-time synchronization.
-  '/api/erp/invoices/:erp_invoice_id/{erp_invoice_id}':
+  '/api/erp/invoices/{erp_invoice_id}':
     patch:
       summary: ''
       operationId: 'patch-api-erp-invoices-:erp_invoice_id'
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  student_erp_id:
-                    type: integer
-                  number:
-                    type: string
-                  total_amount:
-                    type: integer
-                  amount_due:
-                    type: integer
-                  due_date:
-                    type: string
-                  status_id:
-                    type: integer
-                  currency_code:
-                    type: string
-                  erp_id:
-                    type: integer
-                  updated_at:
-                    type: string
-                x-examples:
-                  Example 1:
-                    id: 123
-                    student_erp_id: 12345
-                    number: INV-2024-001
-                    total_amount: 1500
-                    amount_due: 1000
-                    due_date: '2024-03-15'
-                    status_id: 1
-                    currency_code: USD
-                    erp_id: 456
-                    updated_at: '2024-01-15T11:00:00Z'
+          content: {}
         '401':
           description: Unauthorized
           content:
@@ -332,18 +301,68 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/NotFoundError.yaml
-        '422':
-          description: Unprocessable Entity (WebDAV)
+        '406':
+          description: Not Acceptable
           content:
             application/json:
               schema:
-                $ref: ../../Data/ValidationError.yaml
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/InternalServerError.yaml
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      number:
+                        type: array
+                        items:
+                          type: string
+                      total_amount:
+                        type: array
+                        items:
+                          type: string
+                      amount_due:
+                        type: array
+                        items:
+                          type: string
+                      due_date:
+                        type: array
+                        items:
+                          type: string
+                      status_id:
+                        type: array
+                        items:
+                          type: string
+                      currency_code:
+                        type: array
+                        items:
+                          type: string
+                      erp_id:
+                        type: array
+                        items:
+                          type: string
+                      updated_at:
+                        type: array
+                        items:
+                          type: string
+                x-examples:
+                  Example 1:
+                    errors:
+                      number:
+                        - Invoice number must be unique
+                        - Invoice number is required
+                      total_amount:
+                        - Total amount must be greater than 0
+                      amount_due:
+                        - Amount due cannot exceed total amount
+                      due_date:
+                        - Due date must be in format DD/MM/YYYY
+                      status_id:
+                        - Invalid status ID
+                      currency_code:
+                        - Currency code must be a valid ISO code
+                      erp_id:
+                        - ERP ID is required
+                      updated_at:
+                        - 'Updated At must be a valid datetime in format YYYY-MM-DD HH:MM:SS'
       parameters: []
       requestBody:
         content:
@@ -363,10 +382,6 @@ paths:
                   erp_id: 0
                   updated_at: ''
               properties:
-                id:
-                  type: integer
-                student_erp_id:
-                  type: integer
                 number:
                   type: string
                 total_amount:
@@ -375,6 +390,7 @@ paths:
                   type: number
                 due_date:
                   type: string
+                  format: date
                 status_id:
                   type: integer
                 currency_code:
@@ -391,7 +407,7 @@ paths:
         in: path
         required: true
         description: ERP Invoice ID
-  '/api/erp/invoices/:erp_invoice_id/delete_or_cancel/{erp_invoice_id}':
+  '/api/erp/invoices/{erp_invoice_id}/delete_or_cancel':
     post:
       summary: ''
       operationId: 'post-api-erp-invoices-:erp_invoice_id-delete_or_cancel'
@@ -426,19 +442,6 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/NotFoundError.yaml
-        '422':
-          description: Unprocessable Entity (WebDAV)
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/ValidationError.yaml
-                description: can't delete paid invoice
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/InternalServerError.yaml
       description: Delete draft invoices or cancel non-draft invoices.
       requestBody:
         content:

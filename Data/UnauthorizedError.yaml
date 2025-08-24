@@ -1,59 +1,14 @@
 type: object
 properties:
-  type:
-    type: string
-  properties:
+  error:
     type: object
     properties:
-      error:
-        type: object
-        properties:
-          type:
-            type: string
-          properties:
-            type: object
-            properties:
-              code:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  example:
-                    type: integer
-              message:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  example:
-                    type: string
-              details:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  example:
-                    type: string
-          required:
-            type: array
-            items:
-              type: string
+      code:
+        type: string
+      message:
+        type: string
 x-examples:
   Example 1:
-    type: object
-    properties:
-      error:
-        type: object
-        properties:
-          code:
-            type: integer
-            example: 401
-          message:
-            type: string
-            example: Authentication required
-          details:
-            type: string
-            example: Please provide a valid authentication token
-        required:
-          - code
-          - message
+    error:
+      code: '401'
+      message: Unauthorized

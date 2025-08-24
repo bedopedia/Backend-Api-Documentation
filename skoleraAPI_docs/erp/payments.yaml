@@ -68,6 +68,7 @@ paths:
                           type: number
                         payment_date:
                           type: string
+                          format: date
                         cancelled:
                           type: boolean
                         receipt_number:
@@ -86,22 +87,6 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
-        '422':
-          description: Unprocessable Entity (WebDAV)
-          content:
-            application/json:
-              schema:
-                type: object
-                properties: {}
-            application/xml:
-              schema:
-                $ref: ../../Data/ValidationError.yaml
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/InternalServerError.yaml
       operationId: get-api-payments
       description: 'Retrieve a list of payments with support for sorting, filtering, pagination, and date range filtering. By default, payments are sorted by payment date in descending order.'
       parameters:
@@ -133,12 +118,12 @@ paths:
         - schema:
             type: string
           in: query
-          name: 'q[due_date_from]'
+          name: 'q[payment_date_from]'
           description: Filter payments from this date
         - schema:
             type: string
           in: query
-          name: 'q[due_date_to]'
+          name: 'q[payment_date_to]'
           description: Filter payments until this date
         - schema:
             type: string
@@ -153,8 +138,7 @@ paths:
         - schema:
             type: string
           in: query
-          name: 'q[receipt_number]'
-          description: Filter by receipt number
+          name: 'q[payment_amount]'
   /api/erp/payments:
     post:
       summary: ''
@@ -162,37 +146,7 @@ paths:
       responses:
         '201':
           description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    id: 123
-                    erp_id: ERP-456
-                    payment_date: '2024-01-15'
-                    payment_amount: 1000
-                    receipt_number: REC-2024-001
-                    cancelled: false
-                    invoice_erp_id: INV-123
-                    created_at: '2024-01-15T10:00:00Z'
-                properties:
-                  id:
-                    type: integer
-                  erp_id:
-                    type: integer
-                  payment_date:
-                    type: string
-                  payment_amount:
-                    type: number
-                  receipt_number:
-                    type: string
-                  cancelled:
-                    type: boolean
-                  invoice_erp_id:
-                    type: integer
-                  created_at:
-                    type: string
+          content: {}
         '401':
           description: Unauthorized
           content:
@@ -205,24 +159,56 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
-        '409':
-          description: Conflict
+        '406':
+          description: Not Acceptable
           content:
             application/json:
               schema:
-                $ref: ../../Data/ConflictError.yaml
-        '422':
-          description: Unprocessable Entity (WebDAV)
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/ValidationError.yaml
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/InternalServerError.yaml
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      erp_id:
+                        type: array
+                        items:
+                          type: string
+                      payment_date:
+                        type: array
+                        items:
+                          type: string
+                      payment_amount:
+                        type: array
+                        items:
+                          type: string
+                      receipt_number:
+                        type: array
+                        items:
+                          type: string
+                      cancelled:
+                        type: array
+                        items:
+                          type: string
+                      invoice_erp_id:
+                        type: array
+                        items:
+                          type: string
+                x-examples:
+                  Example 1:
+                    errors:
+                      erp_id:
+                        - ERP ID is required
+                      payment_date:
+                        - Payment date must be in format DD/MM/YYYY
+                      payment_amount:
+                        - Payment amount must be greater than 0
+                      receipt_number:
+                        - Receipt number is required
+                        - Receipt number must be unique
+                      cancelled:
+                        - Cancelled must be a boolean value
+                      invoice_erp_id:
+                        - Invoice ERP ID is required
       requestBody:
         content:
           application/json:
@@ -250,7 +236,7 @@ paths:
                 invoice_erp_id:
                   type: integer
         description: ''
-  '/api/erp/payments/:erp_payment_id/{erp_payment_id}':
+  '/api/erp/payments/{erp_payment_id}':
     patch:
       summary: ''
       operationId: 'patch-api-erp-payments-:erp_payment_id'
@@ -300,18 +286,25 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
-        '422':
-          description: Unprocessable Entity (WebDAV)
+        '406':
+          description: Not Acceptable
           content:
             application/json:
               schema:
-                $ref: ../../Data/ValidationError.yaml
-        '500':
-          description: Internal Server Error
-          content:
-            application/json:
-              schema:
-                $ref: ../../Data/InternalServerError.yaml
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      cancelled:
+                        type: array
+                        items:
+                          type: string
+                x-examples:
+                  Example 1:
+                    errors:
+                      cancelled:
+                        - Cancelled must be a boolean value
       description: Update payment status (mainly for cancellation/reversal). Used when payment is cancelled or reversed in ERP system.
       requestBody:
         content:

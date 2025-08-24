@@ -1,59 +1,14 @@
 type: object
 properties:
-  type:
-    type: string
-  properties:
+  error:
     type: object
     properties:
-      error:
-        type: object
-        properties:
-          type:
-            type: string
-          properties:
-            type: object
-            properties:
-              code:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  example:
-                    type: integer
-              message:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  example:
-                    type: string
-              details:
-                type: object
-                properties:
-                  type:
-                    type: string
-                  example:
-                    type: string
-          required:
-            type: array
-            items:
-              type: string
+      code:
+        type: string
+      message:
+        type: string
 x-examples:
   Example 1:
-    type: object
-    properties:
-      error:
-        type: object
-        properties:
-          code:
-            type: integer
-            example: 404
-          message:
-            type: string
-            example: Resource not found
-          details:
-            type: string
-            example: The requested invoice could not be found
-        required:
-          - code
-          - message
+    error:
+      code: '404'
+      message: NotFound
