@@ -235,6 +235,12 @@ paths:
                   type: boolean
                 invoice_erp_id:
                   type: integer
+              required:
+                - erp_id
+                - payment_date
+                - payment_amount
+                - receipt_number
+                - invoice_erp_id
         description: ''
   '/api/erp/payments/{erp_payment_id}':
     patch:

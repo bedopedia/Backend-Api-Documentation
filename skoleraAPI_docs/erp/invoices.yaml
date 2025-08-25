@@ -274,6 +274,15 @@ paths:
                   type: string
                 erp_id:
                   type: integer
+              required:
+                - student_erp_id
+                - number
+                - total_amount
+                - amount_due
+                - due_date
+                - status_id
+                - currency_code
+                - erp_id
       description: Create/sync invoice from ERP system to LMS for real-time synchronization.
   '/api/erp/invoices/{erp_invoice_id}':
     patch:
