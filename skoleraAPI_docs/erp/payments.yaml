@@ -243,37 +243,7 @@ paths:
       responses:
         '200':
           description: OK
-          content:
-            application/json:
-              schema:
-                type: object
-                x-examples:
-                  Example 1:
-                    id: 123
-                    erp_id: ERP-456
-                    payment_date: '2024-01-15'
-                    payment_amount: 1000
-                    receipt_number: REC-2024-001
-                    cancelled: true
-                    invoice_erp_id: INV-123
-                    updated_at: '2024-01-15T11:00:00Z'
-                properties:
-                  id:
-                    type: integer
-                  erp_id:
-                    type: integer
-                  payment_date:
-                    type: string
-                  payment_amount:
-                    type: number
-                  receipt_number:
-                    type: string
-                  cancelled:
-                    type: boolean
-                  invoice_erp_id:
-                    type: integer
-                  updated_at:
-                    type: string
+          content: {}
         '401':
           description: Unauthorized
           content:

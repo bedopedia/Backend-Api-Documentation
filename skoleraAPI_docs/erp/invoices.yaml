@@ -444,16 +444,7 @@ paths:
                 $ref: ../../Data/NotFoundError.yaml
       description: Delete draft invoices or cancel non-draft invoices.
       requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties:
-                erp_id:
-                  type: string
-              x-examples:
-                Example 1:
-                  erp_id: ''
+        content: {}
     parameters:
       - schema:
           type: string
