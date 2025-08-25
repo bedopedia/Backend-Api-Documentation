@@ -1,0 +1,304 @@
+openapi: 3.1.0
+x-stoplight:
+  id: dv6haggs43qfb
+info:
+  title: payment
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /api/payments:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    students:
+                      - id: 1
+                        name: Ahmed Mohamed
+                      - id: 2
+                        name: Sara Ali
+                    invoices:
+                      - id: 1
+                        invoice_number: INV-2024-001
+                      - id: 2
+                        invoice_number: INV-2024-002
+                    payments:
+                      - student_id: 1
+                        invoice_id: 1
+                        amount: 1000
+                        payment_date: '2024-01-15'
+                        cancelled: false
+                properties:
+                  students:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                  invoices:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        invoice_number:
+                          type: string
+                  payments:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        student_id:
+                          type: integer
+                        invoice_id:
+                          type: integer
+                        amount:
+                          type: number
+                        payment_date:
+                          type: string
+                          format: date
+                        cancelled:
+                          type: boolean
+                        receipt_number:
+                          type: string
+                          x-stoplight:
+                            id: 76w4amv4q2k9l
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/UnauthorizedError.yaml
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/ForbiddenError.yaml
+      operationId: get-api-payments
+      description: 'Retrieve a list of payments with support for sorting, filtering, pagination, and date range filtering. By default, payments are sorted by payment date in descending order.'
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: sort_by
+          description: Field to sort by
+        - schema:
+            type: string
+          in: query
+          name: sort_direction
+          description: Sort direction
+        - schema:
+            type: string
+          in: query
+          name: 'q[student_id]'
+          description: Filter by student ID
+        - schema:
+            type: string
+          in: query
+          name: 'q[invoice_id]'
+          description: Filter by invoice ID
+        - schema:
+            type: string
+          in: query
+          name: 'q[cancelled]'
+          description: Filter by payment status
+        - schema:
+            type: string
+          in: query
+          name: 'q[payment_date_from]'
+          description: Filter payments from this date
+        - schema:
+            type: string
+          in: query
+          name: 'q[payment_date_to]'
+          description: Filter payments until this date
+        - schema:
+            type: string
+          in: query
+          name: page
+          description: Page number for pagination
+        - schema:
+            type: string
+          in: query
+          name: per_page
+          description: Number of items per page
+        - schema:
+            type: string
+          in: query
+          name: 'q[payment_amount]'
+  /api/erp/payments:
+    post:
+      summary: ''
+      operationId: post-api-erp-payments
+      responses:
+        '201':
+          description: Created
+          content: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/UnauthorizedError.yaml
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/ForbiddenError.yaml
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      erp_id:
+                        type: array
+                        items:
+                          type: string
+                      payment_date:
+                        type: array
+                        items:
+                          type: string
+                      payment_amount:
+                        type: array
+                        items:
+                          type: string
+                      receipt_number:
+                        type: array
+                        items:
+                          type: string
+                      cancelled:
+                        type: array
+                        items:
+                          type: string
+                      invoice_erp_id:
+                        type: array
+                        items:
+                          type: string
+                x-examples:
+                  Example 1:
+                    errors:
+                      erp_id:
+                        - ERP ID is required
+                      payment_date:
+                        - Payment date must be in format DD/MM/YYYY
+                      payment_amount:
+                        - Payment amount must be greater than 0
+                      receipt_number:
+                        - Receipt number is required
+                        - Receipt number must be unique
+                      cancelled:
+                        - Cancelled must be a boolean value
+                      invoice_erp_id:
+                        - Invoice ERP ID is required
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  erp_id: ''
+                  payment_date: ''
+                  payment_amount: 0
+                  receipt_number: ''
+                  cancelled: ''
+                  invoice_erp_id: ''
+              properties:
+                erp_id:
+                  type: integer
+                payment_date:
+                  type: string
+                payment_amount:
+                  type: number
+                receipt_number:
+                  type: string
+                cancelled:
+                  type: boolean
+                invoice_erp_id:
+                  type: integer
+              required:
+                - erp_id
+                - payment_date
+                - payment_amount
+                - receipt_number
+                - invoice_erp_id
+        description: ''
+  '/api/erp/payments/{erp_payment_id}':
+    patch:
+      summary: ''
+      operationId: 'patch-api-erp-payments-:erp_payment_id'
+      responses:
+        '200':
+          description: OK
+          content: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/UnauthorizedError.yaml
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/ForbiddenError.yaml
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      cancelled:
+                        type: array
+                        items:
+                          type: string
+                x-examples:
+                  Example 1:
+                    errors:
+                      cancelled:
+                        - Cancelled must be a boolean value
+      description: Update payment status (mainly for cancellation/reversal). Used when payment is cancelled or reversed in ERP system.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  cancelled: ''
+              properties:
+                cancelled:
+                  type: boolean
+    parameters:
+      - schema:
+          type: string
+        name: erp_payment_id
+        in: path
+        required: true
+        description: ERP Payment ID
+components:
+  schemas: {}
