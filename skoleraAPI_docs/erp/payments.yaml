@@ -165,6 +165,22 @@ paths:
             application/json:
               schema:
                 type: object
+                x-examples:
+                  Example 1:
+                    errors:
+                      erp_id:
+                        - ERP ID is required
+                      payment_date:
+                        - Payment date must be in format DD/MM/YYYY
+                      payment_amount:
+                        - Payment amount must be greater than 0
+                      receipt_number:
+                        - Receipt number is required
+                        - Receipt number must be unique
+                      cancelled:
+                        - Cancelled must be a boolean value
+                      invoice_erp_id:
+                        - Invoice ERP ID is required
                 properties:
                   errors:
                     type: object
@@ -185,30 +201,26 @@ paths:
                         type: array
                         items:
                           type: string
-                      cancelled:
-                        type: array
-                        items:
-                          type: string
                       invoice_erp_id:
                         type: array
                         items:
                           type: string
-                x-examples:
-                  Example 1:
-                    errors:
-                      erp_id:
-                        - ERP ID is required
-                      payment_date:
-                        - Payment date must be in format DD/MM/YYYY
-                      payment_amount:
-                        - Payment amount must be greater than 0
-                      receipt_number:
-                        - Receipt number is required
-                        - Receipt number must be unique
-                      cancelled:
-                        - Cancelled must be a boolean value
-                      invoice_erp_id:
-                        - Invoice ERP ID is required
+                      status_identifier:
+                        type: array
+                        x-stoplight:
+                          id: tzcr4xk918opt
+                        items:
+                          x-stoplight:
+                            id: b8xercq1hbv9h
+                          type: string
+                      payment_status_identifier:
+                        type: array
+                        x-stoplight:
+                          id: oib0j55istunm
+                        items:
+                          x-stoplight:
+                            id: rj50wcj903qsh
+                          type: string
       requestBody:
         content:
           application/json:
@@ -231,10 +243,16 @@ paths:
                   type: number
                 receipt_number:
                   type: string
-                cancelled:
-                  type: boolean
                 invoice_erp_id:
                   type: integer
+                status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: s07x5d0poakf1
+                payment_status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: 8pkspy2x1045f
               required:
                 - erp_id
                 - payment_date
@@ -268,19 +286,55 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  errors:
-                    type: object
-                    properties:
-                      cancelled:
-                        type: array
-                        items:
-                          type: string
                 x-examples:
                   Example 1:
                     errors:
                       cancelled:
                         - Cancelled must be a boolean value
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      payment_date:
+                        type: array
+                        x-stoplight:
+                          id: sw7ubcgg1usso
+                        items:
+                          x-stoplight:
+                            id: m13tufbmxetxw
+                          type: string
+                      payment_amount:
+                        type: array
+                        x-stoplight:
+                          id: vy7ysa2h92erq
+                        items:
+                          x-stoplight:
+                            id: r68qxh0nblxo0
+                          type: string
+                      receipt_number:
+                        type: array
+                        x-stoplight:
+                          id: vjcnws4fgckmd
+                        items:
+                          x-stoplight:
+                            id: iza2tmm0staqi
+                          type: string
+                      status_identifier:
+                        type: array
+                        x-stoplight:
+                          id: 9gjw8vxferab5
+                        items:
+                          x-stoplight:
+                            id: mnushxsj92cg0
+                          type: string
+                      payment_status_identifier:
+                        type: array
+                        x-stoplight:
+                          id: rk78066v5ssja
+                        items:
+                          x-stoplight:
+                            id: xu4m0197xenll
+                          type: string
       description: Update payment status (mainly for cancellation/reversal). Used when payment is cancelled or reversed in ERP system.
       requestBody:
         content:
@@ -291,8 +345,27 @@ paths:
                 Example 1:
                   cancelled: ''
               properties:
-                cancelled:
-                  type: boolean
+                payment_date:
+                  type: string
+                  x-stoplight:
+                    id: gomj82d8s7wvm
+                  format: date
+                payment_amount:
+                  type: number
+                  x-stoplight:
+                    id: whevcadjlq27g
+                receipt_number:
+                  type: string
+                  x-stoplight:
+                    id: a1tvlv4mqy3yc
+                status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: bm77wjfjez4et
+                payment_status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: 3yme4ij0b8dh2
     parameters:
       - schema:
           type: string
