@@ -231,10 +231,16 @@ paths:
                   type: number
                 receipt_number:
                   type: string
-                cancelled:
-                  type: boolean
                 invoice_erp_id:
                   type: integer
+                status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: s07x5d0poakf1
+                payment_status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: 8pkspy2x1045f
               required:
                 - erp_id
                 - payment_date
@@ -291,8 +297,27 @@ paths:
                 Example 1:
                   cancelled: ''
               properties:
-                cancelled:
-                  type: boolean
+                payment_date:
+                  type: string
+                  x-stoplight:
+                    id: gomj82d8s7wvm
+                  format: date
+                payment_amount:
+                  type: number
+                  x-stoplight:
+                    id: whevcadjlq27g
+                receipt_number:
+                  type: string
+                  x-stoplight:
+                    id: a1tvlv4mqy3yc
+                status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: bm77wjfjez4et
+                payment_status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: 3yme4ij0b8dh2
     parameters:
       - schema:
           type: string

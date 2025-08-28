@@ -266,8 +266,8 @@ paths:
                 due_date:
                   type: string
                   format: date
-                status_id:
-                  type: integer
+                status_identifier:
+                  type: string
                   x-stoplight:
                     id: qomaf2lbufrr0
                 currency_code:
@@ -280,7 +280,7 @@ paths:
                 - total_amount
                 - amount_due
                 - due_date
-                - status_id
+                - status_identifier
                 - currency_code
                 - erp_id
       description: Create/sync invoice from ERP system to LMS for real-time synchronization.
@@ -400,12 +400,12 @@ paths:
                 due_date:
                   type: string
                   format: date
-                status_id:
-                  type: integer
+                status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: s4yq5u5oaap8m
                 currency_code:
                   type: string
-                erp_id:
-                  type: integer
                 updated_at:
                   type: string
       description: ''
