@@ -241,6 +241,14 @@ paths:
                         type: array
                         items:
                           type: string
+                      payment_status_identifier:
+                        type: array
+                        x-stoplight:
+                          id: g3ewvk0czhqsz
+                        items:
+                          x-stoplight:
+                            id: otchlak9mvk6y
+                          type: string
       requestBody:
         content:
           application/json:
@@ -276,6 +284,10 @@ paths:
                   type: string
                 erp_id:
                   type: integer
+                payment_status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: lhb711hrvzaiv
               required:
                 - student_erp_id
                 - number
@@ -372,6 +384,14 @@ paths:
                         type: array
                         items:
                           type: string
+                      payment_status_identifier:
+                        type: array
+                        x-stoplight:
+                          id: n9ciu4onzx5zs
+                        items:
+                          x-stoplight:
+                            id: se1a7l78oj8um
+                          type: string
       parameters: []
       requestBody:
         content:
@@ -391,8 +411,6 @@ paths:
                   erp_id: 0
                   updated_at: ''
               properties:
-                number:
-                  type: string
                 total_amount:
                   type: number
                 amount_due:
@@ -408,6 +426,10 @@ paths:
                   type: string
                 updated_at:
                   type: string
+                payment_status_identifier:
+                  type: string
+                  x-stoplight:
+                    id: 2l5q23yfxsr2p
       description: ''
     parameters:
       - schema:
