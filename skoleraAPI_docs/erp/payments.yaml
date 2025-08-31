@@ -164,7 +164,6 @@ paths:
           content:
             application/json:
               schema:
-                type: object
                 x-examples:
                   Example 1:
                     errors:
@@ -181,6 +180,7 @@ paths:
                         - Cancelled must be a boolean value
                       invoice_erp_id:
                         - Invoice ERP ID is required
+                type: object
                 properties:
                   erp_id:
                     type: array
@@ -231,35 +231,61 @@ paths:
           application/json:
             schema:
               type: object
+              properties:
+                errors:
+                  type: object
+                  properties:
+                    number:
+                      type: array
+                      items:
+                        type: string
+                    total_amount:
+                      type: array
+                      items:
+                        type: string
+                    amount_due:
+                      type: array
+                      items:
+                        type: string
+                    due_date:
+                      type: array
+                      items:
+                        type: string
+                    status_identifier:
+                      type: array
+                      items:
+                        type: string
+                    currency_code:
+                      type: array
+                      items:
+                        type: string
+                    updated_at:
+                      type: array
+                      items:
+                        type: string
+                    payment_status_identifier:
+                      type: array
+                      items:
+                        type: string
               x-examples:
                 Example 1:
-                  erp_id: ''
-                  payment_date: ''
-                  payment_amount: 0
-                  receipt_number: ''
-                  cancelled: ''
-                  invoice_erp_id: ''
-              properties:
-                erp_id:
-                  type: integer
-                payment_date:
-                  type: string
-                payment_amount:
-                  type: number
-                receipt_number:
-                  type: string
-                invoice_erp_id:
-                  type: integer
-                cancelled:
-                  type: boolean
-                  x-stoplight:
-                    id: 4bvbwduoyt0e8
-              required:
-                - erp_id
-                - payment_date
-                - payment_amount
-                - receipt_number
-                - invoice_erp_id
+                  errors:
+                    number:
+                      - Invalid format
+                    total_amount:
+                      - Must be positive
+                    amount_due:
+                      - Must be positive
+                    due_date:
+                      - Invalid date format
+                    status_identifier:
+                      - Invalid status
+                    currency_code:
+                      - Required field
+                    updated_at:
+                      - System generated field
+                    payment_status_identifier:
+                      - Invalid payment status
         description: ''
   '/api/erp/payments/{erp_payment_id}':
     patch:
