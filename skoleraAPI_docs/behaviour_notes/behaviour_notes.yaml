@@ -1,0 +1,554 @@
+openapi: 3.0.0
+x-stoplight:
+  id: 1mcp12p6h18ov
+info:
+  title: behaviour_notes
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /behavior_notes:
+    post:
+      summary: Create New User
+      operationId: post-user
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    id: 16
+                    category: null
+                    owner_id: 1265
+                    student_id: 28
+                    created_at: '2025-09-30 15:35:37'
+                    updated_at: '2025-09-30 15:35:37'
+                    note: <p>dump</p>
+                    course_group_id: 58
+                    type: Bad
+                    behavior_note_category_id: 1
+                    deleted_at: null
+                    academic_year_id: 1
+                    location: london
+                    consequence: Verbal Warning
+                properties:
+                  id:
+                    type: integer
+                  category:
+                    nullable: true
+                  owner_id:
+                    type: integer
+                  student_id:
+                    type: integer
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                  behaviour_date:
+                    type: string
+                    x-stoplight:
+                      id: emxpqy716jlnr
+                    format: date-time
+                  note:
+                    type: string
+                  course_group_id:
+                    type: integer
+                  type:
+                    type: string
+                  behavior_note_category_id:
+                    type: integer
+                  deleted_at:
+                    type: string
+                    format: date-time
+                    nullable: true
+                  academic_year_id:
+                    type: integer
+                  location:
+                    type: string
+                  consequence:
+                    type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+            examples:
+              Create User Bob Fellow:
+                value:
+                  firstName: Bob
+                  lastName: Fellow
+                  email: bob.fellow@gmail.com
+                  dateOfBirth: '1996-08-24'
+          application/xml:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  behavior_note:
+                    behavior_note_category_id: 1
+                    course_group_id: '58'
+                    student_id: 28
+                    owner_id: 1265
+                    note: <p>dump</p>
+                    consequence: Verbal Warning
+                    location: london
+                    receivers_attributes:
+                      - user_type: Teachers
+                      - user_type: Students
+              properties:
+                behavior_note:
+                  type: object
+                  properties:
+                    behavior_note_category_id:
+                      type: integer
+                    course_group_id:
+                      type: string
+                    student_id:
+                      type: integer
+                    owner_id:
+                      type: integer
+                    note:
+                      type: string
+                    consequence:
+                      type: string
+                    location:
+                      type: string
+                    behaviour_date:
+                      type: string
+                      x-stoplight:
+                        id: yut8u7yq45o04
+                    receivers_attributes:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          user_type:
+                            type: string
+          multipart/form-data:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  behavior_note:
+                    behavior_note_category_id: 1
+                    course_group_id: '58'
+                    student_id: 28
+                    owner_id: 1265
+                    note: <p>de</p>
+                    consequence: Verbal Warning
+                    location: '112'
+                    receivers_attributes:
+                      - user_type: Teachers
+                      - user_type: Students
+              properties:
+                behavior_note:
+                  type: object
+                  properties:
+                    behavior_note_category_id:
+                      type: integer
+                    course_group_id:
+                      type: string
+                    student_id:
+                      type: integer
+                    owner_id:
+                      type: integer
+                    note:
+                      type: string
+                    consequence:
+                      type: string
+                    location:
+                      type: string
+                    behavior_date:
+                      type: string
+                      x-stoplight:
+                        id: 81sjgcrz5b2vj
+                      format: date-time
+                    receivers_attributes:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          user_type:
+                            type: string
+        description: Post the necessary fields for the API to create a new user.
+      description: Create a new user.
+    parameters: []
+    get:
+      summary: ''
+      operationId: get-behavior_notes
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    behavior_notes:
+                      - id: 14
+                        category: Verbal aggression
+                        note: <p>testing</p>
+                        created_at: '2025-09-08 18:17:25'
+                        behavior_note_category_id: 2
+                        type: Bad
+                        location: Classroom
+                        consequence: Reflection with VP
+                        owner:
+                          id: 1265
+                          name: 'FName '
+                        receivers:
+                          - id: 38
+                            behavior_note_id: 14
+                            user_type: Teachers
+                            created_at: '2025-09-08 18:17:25'
+                            updated_at: '2025-09-29 02:44:22'
+                            deleted_at: null
+                        student:
+                          id: 733
+                          name: Eyad Ahmed Edris Anwar
+                          avatar_url: /fallback/user/default_male.jpg
+                          gender: male
+                properties:
+                  behavior_notes:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        category:
+                          type: string
+                        note:
+                          type: string
+                        created_at:
+                          type: string
+                        behaviour_date:
+                          type: string
+                          x-stoplight:
+                            id: gd27kf7w2efem
+                        behavior_note_category_id:
+                          type: integer
+                        type:
+                          type: string
+                        location:
+                          type: string
+                        consequence:
+                          type: string
+                        owner:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                        receivers:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              behavior_note_id:
+                                type: integer
+                              user_type:
+                                type: string
+                              created_at:
+                                type: string
+                                format: date-time
+                              updated_at:
+                                type: string
+                                format: date-time
+                              deleted_at:
+                                type: string
+                                format: date-time
+                                nullable: true
+                        student:
+                          type: object
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            avatar_url:
+                              type: string
+                            gender:
+                              type: string
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: course_group_id
+        - schema:
+            type: string
+          in: query
+          name: 'between[started_at]'
+        - schema:
+            type: string
+          in: query
+          name: 'between[ended_at]'
+          description: it will returns the behaviuor notes created at or happned at this range >= started_at && <= ended_at
+  '/behavior_notes/:id':
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    id: 16
+                    category: Bullying
+                    note: <p>dump</p>
+                    created_at: '2025-09-30 15:35:37'
+                    behavior_note_category_id: 1
+                    type: Bad
+                    location: london
+                    consequence: Verbal Warning
+                    owner:
+                      id: 1265
+                      name: 'FName '
+                    receivers:
+                      - id: 41
+                        behavior_note_id: 16
+                        user_type: Teachers
+                        created_at: '2025-09-30 15:35:37'
+                        updated_at: '2025-09-30 15:35:37'
+                        deleted_at: null
+                      - id: 42
+                        behavior_note_id: 16
+                        user_type: Students
+                        created_at: '2025-09-30 15:35:37'
+                        updated_at: '2025-09-30 15:35:37'
+                        deleted_at: null
+                    student:
+                      id: 28
+                      name: Adam Khaled Morsi Mohamed Zaki
+                      avatar_url: /fallback/user/default_male.jpg
+                      gender: male
+                properties:
+                  id:
+                    type: integer
+                  category:
+                    type: string
+                  note:
+                    type: string
+                  created_at:
+                    type: string
+                  behavior_note_category_id:
+                    type: integer
+                  type:
+                    type: string
+                  location:
+                    type: string
+                  consequence:
+                    type: string
+                  owner:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                  receivers:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        behavior_note_id:
+                          type: integer
+                        user_type:
+                          type: string
+                        created_at:
+                          type: string
+                          format: date-time
+                        updated_at:
+                          type: string
+                          format: date-time
+                        deleted_at:
+                          type: string
+                          format: date-time
+                          nullable: true
+                  student:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      avatar_url:
+                        type: string
+                      gender:
+                        type: string
+      operationId: 'get-behavior_notes-:id'
+    put:
+      summary: ''
+      operationId: 'put-behavior_notes-:id'
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    id: 16
+                    behavior_note_category_id: 1
+                    course_group_id: 58
+                    student_id: 28
+                    note: <p>dump v2</p>
+                    location: london
+                    consequence: Verbal Warning
+                    academic_year_id: 1
+                    owner_id: 1265
+                    type: Bad
+                    category: null
+                    created_at: '2025-09-30 15:35:37'
+                    updated_at: '2025-09-30 15:39:27'
+                    deleted_at: null
+                properties:
+                  id:
+                    type: integer
+                  behavior_note_category_id:
+                    type: integer
+                  course_group_id:
+                    type: integer
+                  student_id:
+                    type: integer
+                  note:
+                    type: string
+                  location:
+                    type: string
+                  consequence:
+                    type: string
+                  academic_year_id:
+                    type: integer
+                  owner_id:
+                    type: integer
+                  type:
+                    type: string
+                  category:
+                    nullable: true
+                  created_at:
+                    type: string
+                    format: date-time
+                  updated_at:
+                    type: string
+                    format: date-time
+                  behaviour_date:
+                    type: string
+                    x-stoplight:
+                      id: gjnnuvvdbtygl
+                    format: date-time
+                  deleted_at:
+                    type: string
+                    format: date-time
+                    nullable: true
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  behavior_note:
+                    behavior_note_category_id: 1
+                    course_group_id: '58'
+                    student_id: 28
+                    note: <p>dump v2</p>
+                    consequence: Verbal Warning
+                    location: london
+                    receivers_attributes:
+                      - id: 41
+                        _destroy: true
+                      - id: 42
+                        _destroy: true
+                      - user_type: Teachers
+                      - user_type: Students
+              properties:
+                behavior_note:
+                  type: object
+                  properties:
+                    behavior_note_category_id:
+                      type: integer
+                    course_group_id:
+                      type: string
+                    student_id:
+                      type: integer
+                    note:
+                      type: string
+                    consequence:
+                      type: string
+                    location:
+                      type: string
+                    behaviour_date:
+                      type: string
+                      x-stoplight:
+                        id: 0mowk50cjqkz6
+                      format: date-time
+                    receivers_attributes:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          id:
+                            type: integer
+                          _destroy:
+                            type: boolean
+                          user_type:
+                            type: string
+components:
+  schemas:
+    User:
+      title: User
+      type: object
+      description: ''
+      x-examples:
+        Alice Smith:
+          id: 142
+          firstName: Alice
+          lastName: Smith
+          email: alice.smith@gmail.com
+          dateOfBirth: '1997-10-31'
+          emailVerified: true
+          signUpDate: '2019-08-24'
+      properties:
+        id:
+          type: integer
+          description: Unique identifier for the given user.
+        firstName:
+          type: string
+        lastName:
+          type: string
+        email:
+          type: string
+          format: email
+        dateOfBirth:
+          type: string
+          format: date
+          example: '1997-10-31'
+        emailVerified:
+          type: boolean
+          description: Set to true if the user's email has been verified.
+        createDate:
+          type: string
+          format: date
+          description: The date that the user was created.
+      required:
+        - id
+        - firstName
+        - lastName
+        - email
+        - emailVerified
