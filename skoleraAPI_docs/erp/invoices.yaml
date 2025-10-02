@@ -87,6 +87,31 @@ paths:
                         last_updated_at:
                           type: string
                           format: date
+                  meta:
+                    type: object
+                    x-stoplight:
+                      id: 4hrv87y87s1jc
+                    properties:
+                      current_page:
+                        type: integer
+                        x-stoplight:
+                          id: rd3jz3rrw5ny6
+                      next_page:
+                        type: integer
+                        x-stoplight:
+                          id: rwrublhklivez
+                      prev_page:
+                        type: integer
+                        x-stoplight:
+                          id: k3b2j1y9zumm2
+                      total_count:
+                        type: integer
+                        x-stoplight:
+                          id: 4kvz39ygwtpqs
+                      total_pages:
+                        type: integer
+                        x-stoplight:
+                          id: wrz6x7us4x9j0
         '401':
           description: Unauthorized
           content:
