@@ -10,7 +10,7 @@ paths:
   /behavior_notes:
     post:
       summary: Create New User
-      operationId: post-user
+      operationId: ''
       responses:
         '201':
           description: Created
@@ -77,6 +77,49 @@ paths:
           application/json:
             schema:
               type: object
+              x-examples:
+                Example 1:
+                  behavior_note:
+                    behavior_note_category_id: 1
+                    course_group_id: '58'
+                    student_id: 28
+                    owner_id: 1265
+                    note: <p>12</p>
+                    consequence: Reflection with teacher
+                    location: '2'
+                    receivers_attributes:
+                      - user_type: Teachers
+                      - user_type: Students
+              properties:
+                behavior_note:
+                  type: object
+                  properties:
+                    behavior_note_category_id:
+                      type: integer
+                    course_group_id:
+                      type: string
+                    student_id:
+                      type: integer
+                    owner_id:
+                      type: integer
+                    note:
+                      type: string
+                    consequence:
+                      type: string
+                    location:
+                      type: string
+                    behaviour_date:
+                      type: string
+                      x-stoplight:
+                        id: h7cb4rw3bc2vm
+                      format: date-time
+                    receivers_attributes:
+                      type: array
+                      items:
+                        type: object
+                        properties:
+                          user_type:
+                            type: string
             examples:
               Create User Bob Fellow:
                 value:
@@ -176,7 +219,7 @@ paths:
                           user_type:
                             type: string
         description: Post the necessary fields for the API to create a new user.
-      description: Create a new user.
+      description: ''
     parameters: []
     get:
       summary: ''
@@ -228,10 +271,12 @@ paths:
                           type: string
                         created_at:
                           type: string
+                          format: date-time
                         behaviour_date:
                           type: string
                           x-stoplight:
                             id: gd27kf7w2efem
+                          format: date-time
                         behavior_note_category_id:
                           type: integer
                         type:
@@ -293,6 +338,32 @@ paths:
           in: query
           name: 'between[ended_at]'
           description: it will returns the behaviuor notes created at or happned at this range >= started_at && <= ended_at
+        - schema:
+            type: string
+          in: query
+          name: student_name
+        - schema:
+            type: string
+          in: query
+          name: location
+        - schema:
+            type: string
+          in: query
+          name: giver_name
+        - schema:
+            type: string
+          in: query
+          name: attitude
+          description: Bad or Good
+        - schema:
+            type: string
+          in: query
+          name: consequence
+        - schema:
+            type: integer
+          in: query
+          name: category
+          description: category id
   '/behavior_notes/:id':
     get:
       summary: Your GET endpoint
@@ -344,6 +415,12 @@ paths:
                     type: string
                   created_at:
                     type: string
+                    format: date-time
+                  behaviour_date:
+                    type: string
+                    format: date-time
+                    x-stoplight:
+                      id: 1mu2fprvjcdhp
                   behavior_note_category_id:
                     type: integer
                   type:
