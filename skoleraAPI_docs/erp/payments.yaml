@@ -37,24 +37,6 @@ paths:
                         payment_date: '2024-01-15'
                         cancelled: false
                 properties:
-                  students:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        name:
-                          type: string
-                  invoices:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        invoice_number:
-                          type: string
                   payments:
                     type: array
                     items:

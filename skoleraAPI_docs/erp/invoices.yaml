@@ -48,15 +48,6 @@ paths:
                         status_id: 2
                         last_updated_at: '2024-01-16T11:30:00Z'
                 properties:
-                  students:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        name:
-                          type: string
                   statuses:
                     type: array
                     items:
@@ -199,6 +190,16 @@ paths:
             type: string
           in: query
           name: 'q[amount_due]'
+        - schema:
+            type: string
+          in: query
+          name: 'q[last_updated_from]'
+          description: date
+        - schema:
+            type: string
+          in: query
+          name: 'q[last_updated_to]'
+          description: 'date '
       description: |-
         Retrieve a list of invoices with support for sorting, filtering, pagination, and date range filtering. By default, invoices are filtered and sorted by due date in descending order.
         The response includes students and statuses lists for frontend dropdown filters, and invoices with reference IDs that map to these lists.
