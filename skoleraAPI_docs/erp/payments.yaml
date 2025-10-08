@@ -37,24 +37,6 @@ paths:
                         payment_date: '2024-01-15'
                         cancelled: false
                 properties:
-                  students:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        name:
-                          type: string
-                  invoices:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        invoice_number:
-                          type: string
                   payments:
                     type: array
                     items:
@@ -65,7 +47,7 @@ paths:
                         invoice_id:
                           type: integer
                         amount:
-                          type: number
+                          $ref: ../../Data/Money.yaml
                         payment_date:
                           type: string
                           format: date
@@ -75,6 +57,31 @@ paths:
                           type: string
                           x-stoplight:
                             id: 76w4amv4q2k9l
+                  meta:
+                    type: object
+                    x-stoplight:
+                      id: fk8801ogiexbs
+                    properties:
+                      current_page:
+                        type: integer
+                        x-stoplight:
+                          id: dnq5fcuxp3hrx
+                      next_page:
+                        type: integer
+                        x-stoplight:
+                          id: ci3klfngcdx1s
+                      prev_page:
+                        type: integer
+                        x-stoplight:
+                          id: 8z4learh4i7mc
+                      total_count:
+                        type: integer
+                        x-stoplight:
+                          id: 0lkmibkmrhljc
+                      total_pages:
+                        type: integer
+                        x-stoplight:
+                          id: zhfaog0te7dxg
         '401':
           description: Unauthorized
           content:

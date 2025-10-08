@@ -48,15 +48,6 @@ paths:
                         status_id: 2
                         last_updated_at: '2024-01-16T11:30:00Z'
                 properties:
-                  students:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        id:
-                          type: integer
-                        name:
-                          type: string
                   statuses:
                     type: array
                     items:
@@ -76,17 +67,44 @@ paths:
                         invoice_number:
                           type: string
                         total_amount:
-                          type: number
+                          $ref: ../../Data/Money.yaml
                         amount_due:
-                          type: number
+                          $ref: ../../Data/Money.yaml
                         due_date:
                           type: string
                           format: date
                         status_id:
                           type: integer
-                        last_updated_at:
+                        erp_updated_at:
                           type: string
                           format: date
+                          x-stoplight:
+                            id: fu7aknjescz58
+                  meta:
+                    type: object
+                    x-stoplight:
+                      id: 4hrv87y87s1jc
+                    properties:
+                      current_page:
+                        type: integer
+                        x-stoplight:
+                          id: rd3jz3rrw5ny6
+                      next_page:
+                        type: integer
+                        x-stoplight:
+                          id: rwrublhklivez
+                      prev_page:
+                        type: integer
+                        x-stoplight:
+                          id: k3b2j1y9zumm2
+                      total_count:
+                        type: integer
+                        x-stoplight:
+                          id: 4kvz39ygwtpqs
+                      total_pages:
+                        type: integer
+                        x-stoplight:
+                          id: wrz6x7us4x9j0
         '401':
           description: Unauthorized
           content:
@@ -152,6 +170,16 @@ paths:
             type: string
           in: query
           name: 'q[amount_due]'
+        - schema:
+            type: string
+          in: query
+          name: 'q[last_updated_from]'
+          description: date
+        - schema:
+            type: string
+          in: query
+          name: 'q[last_updated_to]'
+          description: 'date '
       description: |-
         Retrieve a list of invoices with support for sorting, filtering, pagination, and date range filtering. By default, invoices are filtered and sorted by due date in descending order.
         The response includes students and statuses lists for frontend dropdown filters, and invoices with reference IDs that map to these lists.
