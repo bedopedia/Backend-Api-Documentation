@@ -1,0 +1,18 @@
+title: Money
+x-stoplight:
+  id: rv5zayf0a4o7l
+type: object
+properties:
+  amount:
+    type: number
+    x-stoplight:
+      id: hfi5qazwjusf9
+  currency_code:
+    type: string
+    x-stoplight:
+      id: k1mtr5m7qg9oi
+    maxLength: 3
+    minLength: 1
+required:
+  - amount
+  - currency_code

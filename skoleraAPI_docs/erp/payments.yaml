@@ -47,7 +47,7 @@ paths:
                         invoice_id:
                           type: integer
                         amount:
-                          type: number
+                          $ref: ../../Data/Money.yaml
                         payment_date:
                           type: string
                           format: date

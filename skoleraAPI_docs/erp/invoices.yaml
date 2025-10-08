@@ -67,39 +67,19 @@ paths:
                         invoice_number:
                           type: string
                         total_amount:
-                          type: object
-                          properties:
-                            amount:
-                              type: number
-                              x-stoplight:
-                                id: q4ow1lo2ybsxh
-                            currancy_code:
-                              type: string
-                              x-stoplight:
-                                id: snm7b3t82u8sl
-                              maxLength: 3
-                              minLength: 0
+                          $ref: ../../Data/Money.yaml
                         amount_due:
-                          type: object
-                          properties:
-                            amount:
-                              type: number
-                              x-stoplight:
-                                id: gixqhatjq5u90
-                            cu:
-                              type: string
-                              x-stoplight:
-                                id: 45lvd93wwg7qv
-                              minLength: 0
-                              maxLength: 3
+                          $ref: ../../Data/Money.yaml
                         due_date:
                           type: string
                           format: date
                         status_id:
                           type: integer
-                        last_updated_at:
+                        erp_updated_at:
                           type: string
                           format: date
+                          x-stoplight:
+                            id: fu7aknjescz58
                   meta:
                     type: object
                     x-stoplight:
