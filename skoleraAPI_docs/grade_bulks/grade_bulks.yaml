@@ -1,0 +1,688 @@
+openapi: 3.1.0
+x-stoplight:
+  id: xml3nym1ay967
+info:
+  title: grade_bulks
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /grade_bulks/:
+    parameters: []
+    get:
+      summary: Get User Info by User ID
+      tags: []
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    grade_items:
+                      - bulk_number: 5
+                        name: Q1 - Math Homework
+                        sections:
+                          - Grade 3A
+                          - Grade 3B
+                        stages:
+                          - Stage 1
+                        levels:
+                          - Primary
+                        courses:
+                          - Math
+                        course_groups:
+                          - Group 2
+                        created_by: Admin User
+                        created_at: '2025-10-22T12:00:00Z'
+                      - bulk_number: 6
+                        name: Q1 - Science Quiz
+                        sections:
+                          - Grade 4A
+                        stages:
+                          - Stage 2
+                        levels:
+                          - Primary
+                        courses:
+                          - Science
+                        course_groups:
+                          - Group 1
+                        created_by: SuperAdmin
+                        created_at: '2025-10-22T13:00:00Z'
+                    meta:
+                      current_page: 1
+                      next_page: 2
+                      prev_page: null
+                      total_count: 20
+                      total_pages: 2
+                properties:
+                  grade_items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        bulk_number:
+                          type: integer
+                        name:
+                          type: string
+                        sections:
+                          type: array
+                          items:
+                            type: string
+                        stages:
+                          type: array
+                          items:
+                            type: string
+                        levels:
+                          type: array
+                          items:
+                            type: string
+                        courses:
+                          type: array
+                          items:
+                            type: string
+                        course_groups:
+                          type: array
+                          items:
+                            type: string
+                        created_by:
+                          type: string
+                        created_at:
+                          type: string
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      next_page:
+                        type: integer
+                      prev_page:
+                        type: integer
+                      total_count:
+                        type: integer
+                      total_pages:
+                        type: integer
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Access Denied
+                    message: Only Admins and SuperAdmins can access grade bulks
+      operationId: ''
+      description: Retrieve grouped grade items created through the Control Page (Grade Items module).
+      parameters:
+        - schema:
+            type: integer
+          in: query
+          name: page
+          description: Current page number
+        - schema:
+            type: integer
+          in: query
+          name: per_page
+          description: Items per page
+        - schema:
+            type: string
+          in: query
+          name: sort_by
+          description: Column name for sorting
+        - schema:
+            type: string
+          in: query
+          name: sort_direction
+          description: Sorting order (asc / desc)
+        - schema:
+            type: integer
+          in: query
+          name: 'q[section_id]'
+          description: Filter by Section ID
+        - schema:
+            type: string
+          in: query
+          name: 'q[stage_id]'
+          description: Filter by Stage ID
+        - schema:
+            type: string
+          in: query
+          name: 'q[level_id]'
+          description: Filter by Level ID
+        - schema:
+            type: string
+          in: query
+          description: Filter by Course ID
+          name: 'q[course_id]'
+        - schema:
+            type: string
+          in: query
+          description: Filter by Course Group ID
+          name: 'q[course_group_id]'
+        - schema:
+            type: string
+          in: query
+          name: 'q[grading_period]'
+          description: Filter by Grading Period
+        - schema:
+            type: string
+          in: query
+          description: Filter by Category ID
+          name: 'q[category_id]'
+  /grade_bulks/delete_all:
+    post:
+      summary: Create New User
+      operationId: ''
+      responses:
+        '200':
+          description: ok
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  deleted_bulk_numbers:
+                    type: array
+                    items:
+                      type: integer
+                x-examples:
+                  Example 1:
+                    message: Grade bulks deleted successfully
+                    deleted_bulk_numbers:
+                      - 5
+                      - 6
+                      - 7
+              examples:
+                New User Bob Fellow:
+                  value:
+                    id: 12
+                    firstName: Bob
+                    lastName: Fellow
+                    email: bob.fellow@gmail.com
+                    dateOfBirth: '1996-08-24'
+                    emailVerified: false
+                    createDate: '2020-11-18'
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+            multipart/form-data:
+              schema:
+                type: object
+                properties: {}
+        '403':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Access Denied
+                    message: Only Admins and SuperAdmins can delete grade bulks
+            application/xml:
+              schema:
+                type: object
+                properties: {}
+        '404':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Not Found
+                    message: Bulk number 7 does not exist or has been deleted
+      requestBody:
+        content:
+          application/xml:
+            schema:
+              type: array
+              x-examples:
+                Example 1:
+                  type: array
+                  items:
+                    type: integer
+                    example: 5
+                  example:
+                    - 5
+                    - 6
+                    - 7
+              items: {}
+          text/html:
+            schema:
+              type: array
+              items:
+                type: integer
+              x-examples:
+                Example 1:
+                  - 1
+                  - 2
+                  - 3
+                  - 4
+                  - 5
+          application/json:
+            schema:
+              type: array
+              items:
+                type: integer
+              x-examples:
+                Example 1:
+                  - 5
+                  - 6
+                  - 7
+        description: Post the necessary fields for the API to create a new user.
+      description: 'Soft delete grouped grade items based on bulk_number values. '
+    parameters: []
+  /grading_periods/course_grading_periods_with_categories:
+    get:
+      summary: Your GET endpoint
+      tags: []
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    grading_periods:
+                      - id: 1
+                        name: Semester 1
+                        sub_grading_periods:
+                          - id: 11
+                            name: Quarter 1
+                            categories:
+                              - id: 101
+                                name: Classwork
+                                sub_categories:
+                                  - id: 1001
+                                    name: Quiz
+                                  - id: 1002
+                                    name: Homework
+                              - id: 102
+                                name: Participation
+                                sub_categories: []
+                          - id: 12
+                            name: Quarter 2
+                            categories:
+                              - id: 103
+                                name: Projects
+                                sub_categories:
+                                  - id: 1003
+                                    name: Final Project
+                      - id: 2
+                        name: Semester 2
+                        categories:
+                          - id: 104
+                            name: Final Exam
+                            sub_categories: []
+                properties:
+                  grading_periods:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: integer
+                        name:
+                          type: string
+                        sub_grading_periods:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              categories:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                    name:
+                                      type: string
+                                    sub_categories:
+                                      type: array
+                                      items:
+                                        type: object
+                                        properties:
+                                          id:
+                                            type: integer
+                                          name:
+                                            type: string
+                        categories:
+                          type: array
+                          items:
+                            type: object
+                            properties:
+                              id:
+                                type: integer
+                              name:
+                                type: string
+                              sub_categories:
+                                type: array
+                                items:
+                                  type: object
+                                  properties:
+                                    id:
+                                      type: integer
+                                      x-stoplight:
+                                        id: wo6jzd1rgbxyd
+                                    name:
+                                      type: string
+                                      x-stoplight:
+                                        id: fv3rt7oyrq966
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Access Denied
+                    message: Only Admins and SuperAdmins can access grading period data.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Not Found
+                    message: One or more course_ids provided do not exist.
+      operationId: get-grading_periods-course_grading_periods_with_categories
+      description: |
+        Returns all grading periods, sub-grading periods, categories, and sub-categories associated with the provided course IDs.
+      parameters:
+        - schema:
+            type: string
+          in: query
+          name: course_ids
+      requestBody:
+        content: {}
+  /grade_bulks/validate:
+    post:
+      summary: ''
+      operationId: post-grade_bulks-validate
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    message: Validation successful. All courses and grading periods are valid.
+        '403':
+          description: Access Denied
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Access Denied
+                    message: Only Admins and SuperAdmins can validate grade bulks.
+        '406':
+          description: Validation error
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error_code: SK002
+                    error_message: Some courses skipped - no grading system assigned.
+      description: |
+        Validate the payload before creating grouped grade items.
+        This ensures grading periods, categories, and course data are consistent and assigned correctly.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                sections:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      section_id:
+                        type: integer
+                      stage_id:
+                        type: integer
+                      level_id:
+                        type: integer
+                      course_id:
+                        type: integer
+                      course_group_id:
+                        type: integer
+                grading_periods:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      grading_period_id:
+                        type: integer
+                      sub_grading_period_id:
+                        type:
+                          - integer
+                          - 'null'
+                      category_id:
+                        type: integer
+                      sub_category_id:
+                        type:
+                          - integer
+                          - 'null'
+                      max_grade:
+                        type: integer
+                      default_value:
+                        type: integer
+                      hide_grade:
+                        type: boolean
+                      controlled:
+                        type: boolean
+              x-examples:
+                Example 1:
+                  sections:
+                    - section_id: 1
+                      stage_id: 3
+                      level_id: 2
+                      course_id: 10
+                      course_group_id: 58
+                    - section_id: 2
+                      stage_id: 4
+                      level_id: 2
+                      course_id: 11
+                      course_group_id: 68
+                  grading_periods:
+                    - grading_period_id: 1
+                      sub_grading_period_id: 11
+                      category_id: 101
+                      sub_category_id: 1001
+                      max_grade: 100
+                      default_value: 0
+                      hide_grade: false
+                      controlled: true
+                    - grading_period_id: 2
+                      sub_grading_period_id: null
+                      category_id: 102
+                      sub_category_id: null
+                      max_grade: 50
+                      default_value: 10
+                      hide_grade: true
+                      controlled: false
+  /grade_bulks:
+    post:
+      summary: ''
+      operationId: post-grade_bulks
+      responses:
+        '200':
+          description: OK
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Access Denied
+                    message: Only Admins and SuperAdmins can create grade bulks.
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error_code: SK003
+                    error_message: Some courses skipped - grading period/sub-period locked.
+      description: |-
+        Create a new group of grade items (bulk) after successful validation.
+        Only Admins and SuperAdmins are authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties: {}
+          application/xml:
+            schema:
+              type: object
+              properties:
+                sections:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      section_id:
+                        type: integer
+                      stage_id:
+                        type: integer
+                      level_id:
+                        type: integer
+                      course_id:
+                        type: integer
+                      course_group_id:
+                        type: integer
+                grading_periods:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      grading_period_id:
+                        type: integer
+                      sub_grading_period_id:
+                        type:
+                          - integer
+                          - 'null'
+                      category_id:
+                        type: integer
+                      sub_category_id:
+                        type:
+                          - integer
+                          - 'null'
+                      max_grade:
+                        type: integer
+                      default_value:
+                        type: integer
+                      hide_grade:
+                        type: boolean
+                      controlled:
+                        type: boolean
+              x-examples:
+                Example 1:
+                  sections:
+                    - section_id: 1
+                      stage_id: 3
+                      level_id: 2
+                      course_id: 10
+                      course_group_id: 58
+                    - section_id: 2
+                      stage_id: 4
+                      level_id: 2
+                      course_id: 11
+                      course_group_id: 68
+                  grading_periods:
+                    - grading_period_id: 1
+                      sub_grading_period_id: 11
+                      category_id: 101
+                      sub_category_id: 1001
+                      max_grade: 100
+                      default_value: 0
+                      hide_grade: false
+                      controlled: true
+                    - grading_period_id: 2
+                      sub_grading_period_id: null
+                      category_id: 102
+                      sub_category_id: null
+                      max_grade: 50
+                      default_value: 10
+                      hide_grade: true
+                      controlled: false
+components:
+  schemas: {}
