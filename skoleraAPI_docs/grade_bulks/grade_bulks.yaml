@@ -684,5 +684,214 @@ paths:
                       default_value: 10
                       hide_grade: true
                       controlled: false
+  '/courses/{course_id}/course_groups/{course_group_id}/grade_items/{grade_item_id}':
+    parameters:
+      - schema:
+          type: string
+        name: course_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: course_group_id
+        in: path
+        required: true
+      - schema:
+          type: string
+        name: grade_item_id
+        in: path
+        required: true
+    put:
+      summary: ''
+      operationId: put-courses-course_id-course_groups-course_group_id-grade_items-grade_item_id
+      responses:
+        '200':
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: integer
+                  name:
+                    type: string
+                  max_grade:
+                    type: string
+                  grading_period_id:
+                    type: integer
+                  category_id:
+                    type: integer
+                  categoryParentId:
+                    type: integer
+                  gradingPeriodParentId:
+                    type: integer
+                  grading_period:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      start_date:
+                        type: string
+                      end_date:
+                        type: string
+                      sub_grading_periods_attributes:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                      parent_name:
+                        type: string
+                      lock:
+                        type: 'null'
+                      course_grading_period_lock:
+                        type: boolean
+                  category:
+                    type: object
+                    properties:
+                      id:
+                        type: integer
+                      name:
+                        type: string
+                      sub_categories_attributes:
+                        type: array
+                        items:
+                          type: object
+                          properties: {}
+                x-examples:
+                  Example 1:
+                    id: 344
+                    name: menna3
+                    max_grade: '100.0'
+                    grading_period_id: 23
+                    category_id: 16
+                    categoryParentId: 14
+                    gradingPeriodParentId: 22
+                    grading_period:
+                      id: 23
+                      name: Quarter 1
+                      start_date: '2025-10-03'
+                      end_date: '2025-10-10'
+                      sub_grading_periods_attributes: []
+                      parent_name: Semester 1
+                      lock: null
+                      course_grading_period_lock: false
+                    category:
+                      id: 16
+                      name: New Sub Category2
+                      sub_categories_attributes: []
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Unauthorized
+                    message: You need to sign in or sign up before continuing.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Forbidden
+                    message: You are not authorized to perform this action.
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  errors:
+                    type: object
+                    properties:
+                      field_name:
+                        type: array
+                        items:
+                          type: string
+                x-examples:
+                  Example 1:
+                    errors:
+                      field_name:
+                        - error message
+        '423':
+          description: Locked (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Locked
+                    message: The gradebook or grading period is locked.
+      description: |
+        Updates an existing grade item record.
+
+        New Behavior:
+        If the grade item being updated has a `bulk_number` that is **not null**, 
+        the system will automatically remove it from its bulk group — 
+        i.e., sets `bulk_number = null` to detach it from the bulk creation group.
+  '/courses/:course_id/course_groups/:course_group_id/grade_items/:grade_item_id':
+    delete:
+      summary: ''
+      operationId: 'delete-courses-:course_id-course_groups-:course_group_id-grade_items-:grade_item_id'
+      responses:
+        '204':
+          description: No Content
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Unauthorized
+                    message: You need to sign in or sign up before continuing.
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                  message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error: Forbidden
+                    message: You are not authorized to delete grade items.
+        '404':
+          description: Not Found
+      description: '  '
 components:
   schemas: {}
