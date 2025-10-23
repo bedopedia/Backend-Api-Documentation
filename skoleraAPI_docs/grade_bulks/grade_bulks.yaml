@@ -890,8 +890,6 @@ paths:
                   Example 1:
                     error: Forbidden
                     message: You are not authorized to delete grade items.
-        '404':
-          description: Not Found
       description: '  '
 components:
   schemas: {}
