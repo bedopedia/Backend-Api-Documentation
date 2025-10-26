@@ -544,7 +544,14 @@ paths:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can validate grade bulks.
         '406':
-          description: Validation error
+          description: |-
+            SK001 → some grading periods/categories not assigned (no corresponding courses sent)
+
+            SK002 → some no grading system assigned
+
+            SK003 → some grading period/sub-period locked
+
+            SK004 → some grading periods/categories does not exist
           content:
             application/json:
               schema:
@@ -699,7 +706,14 @@ paths:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can create grade bulks.
         '406':
-          description: Not Acceptable
+          description: |-
+            SK001 → some grading periods/categories not assigned (no corresponding courses sent)
+
+            SK002 → some no grading system assigned
+
+            SK003 → some grading period/sub-period locked
+
+            SK004 → some grading periods/categories does not exist
           content:
             application/json:
               schema:
