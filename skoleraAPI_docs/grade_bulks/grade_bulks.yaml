@@ -10,7 +10,7 @@ paths:
   /grade_bulks/:
     parameters: []
     get:
-      summary: Get User Info by User ID
+      summary: ''
       tags: []
       responses:
         '200':
@@ -21,6 +21,85 @@ paths:
                 type: object
                 x-examples:
                   Example 1:
+                    grade_items:
+                      - bulk_number: 0
+                        name: ''
+                        sections:
+                          - ''
+                        stages:
+                          - ''
+                        levels:
+                          - ''
+                        courses:
+                          - ''
+                        course_groups:
+                          - ''
+                        created_by: ''
+                        created_at: ''
+                    meta:
+                      current_page: 0
+                      next_page: 0
+                      prev_page: 0
+                      total_count: 0
+                      total_pages: 0
+                properties:
+                  grade_items:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        bulk_number:
+                          type: integer
+                        name:
+                          type: string
+                        sections:
+                          type: array
+                          items:
+                            type: string
+                        stages:
+                          type: array
+                          items:
+                            type: string
+                        levels:
+                          type: array
+                          items:
+                            type: string
+                        courses:
+                          type: array
+                          items:
+                            type: string
+                        course_groups:
+                          type: array
+                          items:
+                            type: string
+                        created_by:
+                          type: string
+                          format: date-time
+                        created_at:
+                          type: string
+                          format: date-time
+                      required:
+                        - bulk_number
+                        - name
+                  meta:
+                    type: object
+                    properties:
+                      current_page:
+                        type: integer
+                      next_page:
+                        type: integer
+                      prev_page:
+                        type: integer
+                      total_count:
+                        type: integer
+                      total_pages:
+                        type: integer
+                required:
+                  - grade_items
+                  - meta
+              examples:
+                Example 1:
+                  value:
                     grade_items:
                       - bulk_number: 5
                         name: Q1 - Math Homework
@@ -57,64 +136,18 @@ paths:
                       prev_page: null
                       total_count: 20
                       total_pages: 2
-                properties:
-                  grade_items:
-                    type: array
-                    items:
-                      type: object
-                      properties:
-                        bulk_number:
-                          type: integer
-                        name:
-                          type: string
-                        sections:
-                          type: array
-                          items:
-                            type: string
-                        stages:
-                          type: array
-                          items:
-                            type: string
-                        levels:
-                          type: array
-                          items:
-                            type: string
-                        courses:
-                          type: array
-                          items:
-                            type: string
-                        course_groups:
-                          type: array
-                          items:
-                            type: string
-                        created_by:
-                          type: string
-                        created_at:
-                          type: string
-                  meta:
-                    type: object
-                    properties:
-                      current_page:
-                        type: integer
-                      next_page:
-                        type: integer
-                      prev_page:
-                        type: integer
-                      total_count:
-                        type: integer
-                      total_pages:
-                        type: integer
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/UnauthorizedError.yaml
         '403':
           description: Forbidden
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/ForbiddenError.yaml
                 x-examples:
                   Example 1:
                     error: Access Denied
@@ -179,7 +212,7 @@ paths:
           name: 'q[category_id]'
   /grade_bulks/delete_all:
     post:
-      summary: Create New User
+      summary: ''
       operationId: ''
       responses:
         '200':
@@ -203,15 +236,14 @@ paths:
                       - 6
                       - 7
               examples:
-                New User Bob Fellow:
+                '': {}
+                Example 1:
                   value:
-                    id: 12
-                    firstName: Bob
-                    lastName: Fellow
-                    email: bob.fellow@gmail.com
-                    dateOfBirth: '1996-08-24'
-                    emailVerified: false
-                    createDate: '2020-11-18'
+                    message: Grade bulks deleted successfully
+                    deleted_bulk_numbers:
+                      - 5
+                      - 6
+                      - 7
             application/xml:
               schema:
                 type: object
@@ -220,17 +252,18 @@ paths:
               schema:
                 type: object
                 properties: {}
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/UnauthorizedError.yaml
         '403':
           description: ''
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/ForbiddenError.yaml
                 x-examples:
                   Example 1:
                     error: Access Denied
@@ -244,12 +277,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/NotFoundError.yaml
                 x-examples:
                   Example 1:
                     error: Not Found
@@ -258,7 +286,7 @@ paths:
         content:
           application/xml:
             schema:
-              type: array
+              type: object
               x-examples:
                 Example 1:
                   type: array
@@ -269,7 +297,17 @@ paths:
                     - 5
                     - 6
                     - 7
-              items: {}
+              properties:
+                bulks:
+                  type: array
+                  x-stoplight:
+                    id: fpx1mex9qkijn
+                  items:
+                    x-stoplight:
+                      id: p0d0zdgc2l9b1
+                    type: integer
+              required:
+                - bulks
           text/html:
             schema:
               type: array
@@ -292,12 +330,24 @@ paths:
                   - 5
                   - 6
                   - 7
-        description: Post the necessary fields for the API to create a new user.
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                bulks:
+                  type: array
+                  x-stoplight:
+                    id: 5ozfae2dz4ruf
+                  items:
+                    x-stoplight:
+                      id: 1ofmp4wvlfpsr
+                    type: integer
+        description: ''
       description: 'Soft delete grouped grade items based on bulk_number values. '
     parameters: []
   /grading_periods/course_grading_periods_with_categories:
     get:
-      summary: Your GET endpoint
+      summary: ''
       tags: []
       responses:
         '200':
@@ -309,36 +359,23 @@ paths:
                 x-examples:
                   Example 1:
                     grading_periods:
-                      - id: 1
-                        name: Semester 1
+                      - id: 0
+                        name: ''
                         sub_grading_periods:
-                          - id: 11
-                            name: Quarter 1
+                          - id: 0
+                            name: ''
                             categories:
-                              - id: 101
-                                name: Classwork
+                              - id: 0
+                                name: ''
                                 sub_categories:
-                                  - id: 1001
-                                    name: Quiz
-                                  - id: 1002
-                                    name: Homework
-                              - id: 102
-                                name: Participation
-                                sub_categories: []
-                          - id: 12
-                            name: Quarter 2
-                            categories:
-                              - id: 103
-                                name: Projects
-                                sub_categories:
-                                  - id: 1003
-                                    name: Final Project
-                      - id: 2
-                        name: Semester 2
+                                  - id: 0
+                                    name: ''
                         categories:
-                          - id: 104
-                            name: Final Exam
-                            sub_categories: []
+                          - id: 0
+                            name: ''
+                            sub_categories:
+                              - id: 0
+                                name: ''
                 properties:
                   grading_periods:
                     type: array
@@ -392,23 +429,59 @@ paths:
                                   properties:
                                     id:
                                       type: integer
-                                      x-stoplight:
-                                        id: wo6jzd1rgbxyd
                                     name:
                                       type: string
-                                      x-stoplight:
-                                        id: fv3rt7oyrq966
+                      required:
+                        - id
+                        - name
+                required:
+                  - grading_periods
+              examples:
+                Example 1:
+                  value:
+                    grading_periods:
+                      - id: 1
+                        name: Semester 1
+                        sub_grading_periods:
+                          - id: 11
+                            name: Quarter 1
+                            categories:
+                              - id: 101
+                                name: Classwork
+                                sub_categories:
+                                  - id: 1001
+                                    name: Quiz
+                                  - id: 1002
+                                    name: Homework
+                              - id: 102
+                                name: Participation
+                                sub_categories: []
+                          - id: 12
+                            name: Quarter 2
+                            categories:
+                              - id: 103
+                                name: Projects
+                                sub_categories:
+                                  - id: 1003
+                                    name: Final Project
+                      - id: 2
+                        name: Semester 2
+                        categories:
+                          - id: 104
+                            name: Final Exam
+                            sub_categories: []
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/UnauthorizedError.yaml
         '403':
           description: Access Denied
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/ForbiddenError.yaml
                 x-examples:
                   Example 1:
                     error: Access Denied
@@ -418,12 +491,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/NotFoundError.yaml
                 x-examples:
                   Example 1:
                     error: Not Found
@@ -433,9 +501,10 @@ paths:
         Returns all grading periods, sub-grading periods, categories, and sub-categories associated with the provided course IDs.
       parameters:
         - schema:
-            type: string
+            type: array
           in: query
           name: course_ids
+          required: true
       requestBody:
         content: {}
   /grade_bulks/validate:
@@ -455,17 +524,22 @@ paths:
                 x-examples:
                   Example 1:
                     message: Validation successful. All courses and grading periods are valid.
+              examples:
+                Example 1:
+                  value:
+                    message: Validation successful.
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/UnauthorizedError.yaml
         '403':
           description: Access Denied
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/ForbiddenError.yaml
                 x-examples:
                   Example 1:
                     error: Access Denied
@@ -485,6 +559,21 @@ paths:
                   Example 1:
                     error_code: SK002
                     error_message: Some courses skipped - no grading system assigned.
+              examples:
+                Example 1:
+                  value:
+                    Example 1:
+                      error_code: SK001
+                      error_message: Some grading periods/categories not assigned (no corresponding courses sent).
+                    Example 2:
+                      error_code: SK002
+                      error_message: Some courses skipped - no grading system assigned.
+                    Example 3:
+                      error_code: SK003
+                      error_message: Some courses skipped - grading period/sub-period locked.
+                    Example 4:
+                      error_code: SK004
+                      error_message: Some grading periods/categories do not exist.
       description: |
         Validate the payload before creating grouped grade items.
         This ensures grading periods, categories, and course data are consistent and assigned correctly.
@@ -493,6 +582,23 @@ paths:
           application/json:
             schema:
               type: object
+              x-examples:
+                Example 1:
+                  sections:
+                    - section_id: 0
+                      stage_id: 0
+                      level_id: 0
+                      course_id: 0
+                      course_group_id: 0
+                  grading_periods:
+                    - grading_period_id: 0
+                      sub_grading_period_id: null
+                      category_id: 0
+                      sub_category_id: null
+                      max_grade: 0
+                      default_value: 0
+                      hide_grade: false
+                      controlled: false
               properties:
                 sections:
                   type: array
@@ -509,6 +615,12 @@ paths:
                         type: integer
                       course_group_id:
                         type: integer
+                    required:
+                      - section_id
+                      - stage_id
+                      - level_id
+                      - course_id
+                      - course_group_id
                 grading_periods:
                   type: array
                   items:
@@ -517,25 +629,194 @@ paths:
                       grading_period_id:
                         type: integer
                       sub_grading_period_id:
-                        type:
-                          - integer
-                          - 'null'
+                        type: 'null'
                       category_id:
                         type: integer
                       sub_category_id:
-                        type:
-                          - integer
-                          - 'null'
-                      max_grade:
-                        type: integer
-                      default_value:
-                        type: integer
-                      hide_grade:
-                        type: boolean
-                      controlled:
-                        type: boolean
+                        type: 'null'
+                    required:
+                      - grading_period_id
+                      - category_id
+                max_grade:
+                  type: integer
+                  x-stoplight:
+                    id: qu8f6ac18bgl4
+                default_value:
+                  type: integer
+                  x-stoplight:
+                    id: cu6p5dewupwna
+                hide_grade:
+                  type: boolean
+                  x-stoplight:
+                    id: b3r2x5b4cm0iv
+                controlled:
+                  type: boolean
+                  x-stoplight:
+                    id: 19orjmj3ygvmn
+              required:
+                - sections
+                - grading_periods
+                - max_grade
+                - default_value
+            examples:
+              Example 1:
+                value:
+                  sections:
+                    - section_id: 0
+                      stage_id: 0
+                      level_id: 0
+                      course_id: 0
+                      course_group_id: 0
+                  grading_periods:
+                    - grading_period_id: 0
+                      sub_grading_period_id: 0
+                      category_id: 0
+                      sub_category_id: 0
+                      max_grade: 0
+                      default_value: 0
+                      hide_grade: true
+                      controlled: true
+  /grade_bulks:
+    post:
+      summary: ''
+      operationId: post-grade_bulks
+      responses:
+        '200':
+          description: OK
+        '401':
+          description: Unauthorized
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/UnauthorizedError.yaml
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/ForbiddenError.yaml
+                x-examples:
+                  Example 1:
+                    error: Access Denied
+                    message: Only Admins and SuperAdmins can create grade bulks.
+        '406':
+          description: Not Acceptable
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error_code:
+                    type: string
+                  error_message:
+                    type: string
+                x-examples:
+                  Example 1:
+                    error_code: SK003
+                    error_message: Some courses skipped - grading period/sub-period locked.
+              examples:
+                '': {}
+                Example 1:
+                  value:
+                    Example 1:
+                      error_code: SK001
+                      error_message: Some grading periods/categories not assigned (no corresponding courses sent).
+                    Example 2:
+                      error_code: SK002
+                      error_message: Some courses skipped - no grading system assigned.
+                    Example 3:
+                      error_code: SK003
+                      error_message: Some courses skipped - grading period/sub-period locked.
+                    Example 4:
+                      error_code: SK004
+                      error_message: Some grading periods/categories do not exist.
+      description: |-
+        Create a new group of grade items (bulk) after successful validation.
+        Only Admins and SuperAdmins are authorized to perform this action.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
               x-examples:
                 Example 1:
+                  sections:
+                    - section_id: 0
+                      stage_id: 0
+                      level_id: 0
+                      course_id: 0
+                      course_group_id: 0
+                  grading_periods:
+                    - grading_period_id: 0
+                      sub_grading_period_id: null
+                      category_id: 0
+                      sub_category_id: null
+                      max_grade: 0
+                      default_value: 0
+                      hide_grade: false
+                      controlled: false
+              properties:
+                sections:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      section_id:
+                        type: integer
+                      stage_id:
+                        type: integer
+                      level_id:
+                        type: integer
+                      course_id:
+                        type: integer
+                      course_group_id:
+                        type: integer
+                    required:
+                      - section_id
+                      - stage_id
+                      - level_id
+                      - course_id
+                      - course_group_id
+                grading_periods:
+                  type: array
+                  items:
+                    type: object
+                    properties:
+                      grading_period_id:
+                        type: integer
+                      sub_grading_period_id:
+                        type: 'null'
+                      category_id:
+                        type: integer
+                      sub_category_id:
+                        type: 'null'
+                    required:
+                      - grading_period_id
+                      - category_id
+                max_grade:
+                  type: integer
+                  x-stoplight:
+                    id: c7ot3z389htqf
+                default_value:
+                  type: integer
+                  x-stoplight:
+                    id: yp9f3oc1rmyf7
+                hide_grade:
+                  type: boolean
+                  x-stoplight:
+                    id: 4ue4sgh2ofpn7
+                controlled:
+                  type: boolean
+                  x-stoplight:
+                    id: 9cf6nq68fjbff
+              required:
+                - sections
+                - grading_periods
+                - max_grade
+                - default_value
+            examples:
+              Example 1:
+                value:
                   sections:
                     - section_id: 1
                       stage_id: 3
@@ -564,52 +845,6 @@ paths:
                       default_value: 10
                       hide_grade: true
                       controlled: false
-  /grade_bulks:
-    post:
-      summary: ''
-      operationId: post-grade_bulks
-      responses:
-        '200':
-          description: OK
-        '403':
-          description: Forbidden
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
-                x-examples:
-                  Example 1:
-                    error: Access Denied
-                    message: Only Admins and SuperAdmins can create grade bulks.
-        '406':
-          description: Not Acceptable
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  error_code:
-                    type: string
-                  error_message:
-                    type: string
-                x-examples:
-                  Example 1:
-                    error_code: SK003
-                    error_message: Some courses skipped - grading period/sub-period locked.
-      description: |-
-        Create a new group of grade items (bulk) after successful validation.
-        Only Admins and SuperAdmins are authorized to perform this action.
-      requestBody:
-        content:
-          application/json:
-            schema:
-              type: object
-              properties: {}
           application/xml:
             schema:
               type: object
@@ -711,6 +946,35 @@ paths:
             application/json:
               schema:
                 type: object
+                x-examples:
+                  Example 1:
+                    id: 0
+                    name: ''
+                    max_grade: ''
+                    grading_period_id: 0
+                    category_id: 0
+                    categoryParentId: 0
+                    gradingPeriodParentId: 0
+                    grading_period:
+                      id: 0
+                      name: ''
+                      start_date: ''
+                      end_date: ''
+                      parent_name: ''
+                      lock: false
+                      course_grading_period_lock: false
+                      sub_grading_periods_attributes:
+                        - id: 0
+                          name: ''
+                          start_date: ''
+                          end_date: ''
+                          lock: false
+                    category:
+                      id: 0
+                      name: ''
+                      sub_categories_attributes:
+                        - id: 0
+                          name: ''
                 properties:
                   id:
                     type: integer
@@ -737,17 +1001,27 @@ paths:
                         type: string
                       end_date:
                         type: string
+                      parent_name:
+                        type: string
+                      lock:
+                        type: boolean
+                      course_grading_period_lock:
+                        type: boolean
                       sub_grading_periods_attributes:
                         type: array
                         items:
                           type: object
-                          properties: {}
-                      parent_name:
-                        type: string
-                      lock:
-                        type: 'null'
-                      course_grading_period_lock:
-                        type: boolean
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                            start_date:
+                              type: string
+                            end_date:
+                              type: string
+                            lock:
+                              type: boolean
                   category:
                     type: object
                     properties:
@@ -759,9 +1033,22 @@ paths:
                         type: array
                         items:
                           type: object
-                          properties: {}
-                x-examples:
-                  Example 1:
+                          properties:
+                            id:
+                              type: integer
+                            name:
+                              type: string
+                required:
+                  - id
+                  - name
+                  - max_grade
+                  - grading_period_id
+                  - category_id
+                  - grading_period
+                  - category
+              examples:
+                Example 1:
+                  value:
                     id: 344
                     name: menna3
                     max_grade: '100.0'
@@ -774,25 +1061,34 @@ paths:
                       name: Quarter 1
                       start_date: '2025-10-03'
                       end_date: '2025-10-10'
-                      sub_grading_periods_attributes: []
+                      sub_grading_periods_attributes:
+                        - id: 11
+                          name: Midterm 1
+                          start_date: '2025-09-01'
+                          end_date: '2025-09-30'
+                          lock: false
+                        - id: 12
+                          name: Midterm 2
+                          start_date: '2025-10-01'
+                          end_date: '2025-10-20'
+                          lock: false
                       parent_name: Semester 1
                       lock: null
                       course_grading_period_lock: false
                     category:
                       id: 16
                       name: New Sub Category2
-                      sub_categories_attributes: []
+                      sub_categories_attributes:
+                        - id: 20
+                          name: Quiz
+                        - id: 21
+                          name: Homework
         '401':
           description: Unauthorized
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/UnauthorizedError.yaml
                 x-examples:
                   Example 1:
                     error: Unauthorized
@@ -802,12 +1098,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/ForbiddenError.yaml
                 x-examples:
                   Example 1:
                     error: Forbidden
@@ -865,12 +1156,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/UnauthorizedError.yaml
                 x-examples:
                   Example 1:
                     error: Unauthorized
@@ -880,12 +1166,7 @@ paths:
           content:
             application/json:
               schema:
-                type: object
-                properties:
-                  error:
-                    type: string
-                  message:
-                    type: string
+                $ref: ../../Data/ForbiddenError.yaml
                 x-examples:
                   Example 1:
                     error: Forbidden
