@@ -271,10 +271,6 @@ paths:
                   Example 1:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can delete grade bulks
-            application/xml:
-              schema:
-                type: object
-                properties: {}
         '404':
           description: ''
           content:
@@ -287,63 +283,22 @@ paths:
                     message: Bulk number 7 does not exist or has been deleted
       requestBody:
         content:
-          application/xml:
-            schema:
-              type: object
-              x-examples:
-                Example 1:
-                  type: array
-                  items:
-                    type: integer
-                    example: 5
-                  example:
-                    - 5
-                    - 6
-                    - 7
-              properties:
-                bulks:
-                  type: array
-                  x-stoplight:
-                    id: fpx1mex9qkijn
-                  items:
-                    x-stoplight:
-                      id: p0d0zdgc2l9b1
-                    type: integer
-              required:
-                - bulks
-          text/html:
-            schema:
-              type: array
-              items:
-                type: integer
-              x-examples:
-                Example 1:
-                  - 1
-                  - 2
-                  - 3
-                  - 4
-                  - 5
           application/json:
             schema:
-              type: array
-              items:
-                type: integer
+              type: object
               x-examples:
                 Example 1:
                   - 5
                   - 6
                   - 7
-          multipart/form-data:
-            schema:
-              type: object
               properties:
-                bulks:
+                deleted_bulk:
                   type: array
                   x-stoplight:
-                    id: 5ozfae2dz4ruf
+                    id: cbf01lbb6mkah
                   items:
                     x-stoplight:
-                      id: 1ofmp4wvlfpsr
+                      id: ssdnw1ur62698
                     type: integer
         description: ''
       description: 'Soft delete grouped grade items based on bulk_number values. '
@@ -572,18 +527,20 @@ paths:
               examples:
                 Example 1:
                   value:
-                    Example 1:
-                      error_code: SK001
-                      error_message: Some grading periods/categories not assigned (no corresponding courses sent).
-                    Example 2:
-                      error_code: SK002
-                      error_message: Some courses skipped - no grading system assigned.
-                    Example 3:
-                      error_code: SK003
-                      error_message: Some courses skipped - grading period/sub-period locked.
-                    Example 4:
-                      error_code: SK004
-                      error_message: Some grading periods/categories do not exist.
+                    error_code: SK001
+                    error_message: Some grading periods/categories not assigned (no corresponding courses sent).
+                Example 2:
+                  value:
+                    error_code: SK002
+                    error_message: Some courses skipped - no grading system assigned.
+                Example 3:
+                  value:
+                    error_code: SK002
+                    error_message: Some courses skipped - no grading system assigned.
+                Example 4:
+                  value:
+                    error_code: SK004
+                    error_message: Some grading periods/categories do not exist.
       description: |
         Validate the payload before creating grouped grade items.
         This ensures grading periods, categories, and course data are consistent and assigned correctly.
@@ -735,18 +692,20 @@ paths:
                 '': {}
                 Example 1:
                   value:
-                    Example 1:
-                      error_code: SK001
-                      error_message: Some grading periods/categories not assigned (no corresponding courses sent).
-                    Example 2:
-                      error_code: SK002
-                      error_message: Some courses skipped - no grading system assigned.
-                    Example 3:
-                      error_code: SK003
-                      error_message: Some courses skipped - grading period/sub-period locked.
-                    Example 4:
-                      error_code: SK004
-                      error_message: Some grading periods/categories do not exist.
+                    error_code: SK001
+                    error_message: Some grading periods/categories not assigned (no corresponding courses sent).
+                Example 2:
+                  value:
+                    error_code: SK002
+                    error_message: Some courses skipped - no grading system assigned.
+                Example 3:
+                  value:
+                    error_code: SK003
+                    error_message: Some courses skipped - grading period/sub-period locked.
+                Example 4:
+                  value:
+                    error_code: SK004
+                    error_message: Some grading periods/categories do not exist.
       description: |-
         Create a new group of grade items (bulk) after successful validation.
         Only Admins and SuperAdmins are authorized to perform this action.
@@ -834,80 +793,6 @@ paths:
             examples:
               Example 1:
                 value:
-                  sections:
-                    - section_id: 1
-                      stage_id: 3
-                      level_id: 2
-                      course_id: 10
-                      course_group_id: 58
-                    - section_id: 2
-                      stage_id: 4
-                      level_id: 2
-                      course_id: 11
-                      course_group_id: 68
-                  grading_periods:
-                    - grading_period_id: 1
-                      sub_grading_period_id: 11
-                      category_id: 101
-                      sub_category_id: 1001
-                      max_grade: 100
-                      default_value: 0
-                      hide_grade: false
-                      controlled: true
-                    - grading_period_id: 2
-                      sub_grading_period_id: null
-                      category_id: 102
-                      sub_category_id: null
-                      max_grade: 50
-                      default_value: 10
-                      hide_grade: true
-                      controlled: false
-          application/xml:
-            schema:
-              type: object
-              properties:
-                sections:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      section_id:
-                        type: integer
-                      stage_id:
-                        type: integer
-                      level_id:
-                        type: integer
-                      course_id:
-                        type: integer
-                      course_group_id:
-                        type: integer
-                grading_periods:
-                  type: array
-                  items:
-                    type: object
-                    properties:
-                      grading_period_id:
-                        type: integer
-                      sub_grading_period_id:
-                        type:
-                          - integer
-                          - 'null'
-                      category_id:
-                        type: integer
-                      sub_category_id:
-                        type:
-                          - integer
-                          - 'null'
-                      max_grade:
-                        type: integer
-                      default_value:
-                        type: integer
-                      hide_grade:
-                        type: boolean
-                      controlled:
-                        type: boolean
-              x-examples:
-                Example 1:
                   sections:
                     - section_id: 1
                       stage_id: 3
