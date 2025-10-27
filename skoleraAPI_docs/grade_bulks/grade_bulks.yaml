@@ -220,13 +220,6 @@ paths:
             application/json:
               schema:
                 type: object
-                properties:
-                  message:
-                    type: string
-                  deleted_bulk_numbers:
-                    type: array
-                    items:
-                      type: integer
                 x-examples:
                   Example 1:
                     message: Grade bulks deleted successfully
@@ -234,6 +227,17 @@ paths:
                       - 5
                       - 6
                       - 7
+                properties:
+                  message:
+                    type: string
+                  deleted_bulk_numbers:
+                    type: array
+                    x-stoplight:
+                      id: ts2ovhdjg98kr
+                    items:
+                      x-stoplight:
+                        id: ant0kztqnzqix
+                      type: integer
               examples:
                 '': {}
                 Example 1:
