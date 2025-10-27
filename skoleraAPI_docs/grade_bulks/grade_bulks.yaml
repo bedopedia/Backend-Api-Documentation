@@ -244,11 +244,11 @@ paths:
                       - 5
                       - 6
                       - 7
-            application/xml:
+            application/json:
               schema:
                 type: object
                 properties: {}
-            multipart/form-data:
+            application/json:
               schema:
                 type: object
                 properties: {}
@@ -305,7 +305,6 @@ paths:
                     type: integer
               required:
                 - bulks
-          text/html:
             schema:
               type: array
               items:
