@@ -19,6 +19,7 @@ paths:
             application/json:
               schema:
                 type: object
+                x-examples:
                   Example 1:
                     grade_items:
                       - bulk_number: 0
@@ -146,6 +147,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
+                x-examples:
                   Example 1:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can access grade bulks
@@ -218,6 +220,7 @@ paths:
             application/json:
               schema:
                 type: object
+                x-examples:
                   Example 1:
                     message: Grade bulks deleted successfully
                     deleted_bulk_numbers:
@@ -264,6 +267,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
+                x-examples:
                   Example 1:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can delete grade bulks
@@ -277,14 +281,16 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/NotFoundError.yaml
+                x-examples:
                   Example 1:
                     error: Not Found
                     message: Bulk number 7 does not exist or has been deleted
       requestBody:
         content:
-          application/json:
+          application/xml:
             schema:
               type: object
+              x-examples:
                 Example 1:
                   type: array
                   items:
@@ -310,6 +316,7 @@ paths:
               type: array
               items:
                 type: integer
+              x-examples:
                 Example 1:
                   - 1
                   - 2
@@ -321,6 +328,7 @@ paths:
               type: array
               items:
                 type: integer
+              x-examples:
                 Example 1:
                   - 5
                   - 6
@@ -351,6 +359,7 @@ paths:
             application/json:
               schema:
                 type: object
+                x-examples:
                   Example 1:
                     grading_periods:
                       - id: 0
@@ -476,6 +485,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
+                x-examples:
                   Example 1:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can access grading period data.
@@ -485,6 +495,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/NotFoundError.yaml
+                x-examples:
                   Example 1:
                     error: Not Found
                     message: One or more course_ids provided do not exist.
@@ -513,6 +524,7 @@ paths:
                 properties:
                   message:
                     type: string
+                x-examples:
                   Example 1:
                     message: Validation successful. All courses and grading periods are valid.
               examples:
@@ -531,6 +543,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
+                x-examples:
                   Example 1:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can validate grade bulks.
@@ -552,6 +565,7 @@ paths:
                     type: string
                   error_message:
                     type: string
+                x-examples:
                   Example 1:
                     error_code: SK002
                     error_message: Some courses skipped - no grading system assigned.
@@ -578,6 +592,7 @@ paths:
           application/json:
             schema:
               type: object
+              x-examples:
                 Example 1:
                   sections:
                     - section_id: 0
@@ -690,6 +705,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
+                x-examples:
                   Example 1:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can create grade bulks.
@@ -711,6 +727,7 @@ paths:
                     type: string
                   error_message:
                     type: string
+                x-examples:
                   Example 1:
                     error_code: SK003
                     error_message: Some courses skipped - grading period/sub-period locked.
@@ -738,6 +755,7 @@ paths:
           application/json:
             schema:
               type: object
+              x-examples:
                 Example 1:
                   sections:
                     - section_id: 0
@@ -888,6 +906,7 @@ paths:
                         type: boolean
                       controlled:
                         type: boolean
+              x-examples:
                 Example 1:
                   sections:
                     - section_id: 1
@@ -944,6 +963,7 @@ paths:
             application/json:
               schema:
                 type: object
+                x-examples:
                   Example 1:
                     id: 0
                     name: ''
@@ -1086,6 +1106,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/UnauthorizedError.yaml
+                x-examples:
                   Example 1:
                     error: Unauthorized
                     message: You need to sign in or sign up before continuing.
@@ -1095,6 +1116,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
+                x-examples:
                   Example 1:
                     error: Forbidden
                     message: You are not authorized to perform this action.
@@ -1112,6 +1134,7 @@ paths:
                         type: array
                         items:
                           type: string
+                x-examples:
                   Example 1:
                     errors:
                       field_name:
@@ -1127,6 +1150,7 @@ paths:
                     type: string
                   message:
                     type: string
+                x-examples:
                   Example 1:
                     error: Locked
                     message: The gradebook or grading period is locked.
@@ -1150,6 +1174,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/UnauthorizedError.yaml
+                x-examples:
                   Example 1:
                     error: Unauthorized
                     message: You need to sign in or sign up before continuing.
@@ -1159,6 +1184,7 @@ paths:
             application/json:
               schema:
                 $ref: ../../Data/ForbiddenError.yaml
+                x-examples:
                   Example 1:
                     error: Forbidden
                     message: You are not authorized to delete grade items.
