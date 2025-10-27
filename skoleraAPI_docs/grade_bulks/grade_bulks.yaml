@@ -267,7 +267,7 @@ paths:
                   Example 1:
                     error: Access Denied
                     message: Only Admins and SuperAdmins can delete grade bulks
-            application/json:
+            application/xml:
               schema:
                 type: object
                 properties: {}
