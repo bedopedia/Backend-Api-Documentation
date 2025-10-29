@@ -456,6 +456,10 @@ paths:
                   type: string
                   x-stoplight:
                     id: 2l5q23yfxsr2p
+                number:
+                  type: string
+                  x-stoplight:
+                    id: io4gdfa23i1d1
       description: ''
     parameters:
       - schema:
