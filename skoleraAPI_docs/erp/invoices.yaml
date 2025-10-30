@@ -80,6 +80,10 @@ paths:
                           format: date
                           x-stoplight:
                             id: fu7aknjescz58
+                        id:
+                          type: integer
+                          x-stoplight:
+                            id: xpc2e033q0zkg
                   meta:
                     type: object
                     x-stoplight:
