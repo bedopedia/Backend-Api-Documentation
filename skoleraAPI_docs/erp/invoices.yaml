@@ -314,8 +314,10 @@ paths:
                     id: qomaf2lbufrr0
                 currency_code:
                   type: string
-                erp_id:
+                erp_invoice_id:
                   type: integer
+                  x-stoplight:
+                    id: 0rj72dupdrn9u
                 payment_status_identifier:
                   type: string
                   x-stoplight:
@@ -328,7 +330,7 @@ paths:
                 - due_date
                 - status_identifier
                 - currency_code
-                - erp_id
+                - erp_invoice_id
       description: Create/sync invoice from ERP system to LMS for real-time synchronization.
   '/api/erp/invoices/{erp_invoice_id}':
     patch:
