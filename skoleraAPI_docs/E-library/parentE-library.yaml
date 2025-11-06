@@ -1,0 +1,156 @@
+openapi: 3.1.0
+x-stoplight:
+  id: gic95dnt22pta
+info:
+  title: parentE-library
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /parents/upload_files:
+    parameters: []
+    post:
+      summary: ''
+      operationId: post
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: object
+                x-examples:
+                  Example 1:
+                    id: 849
+                    download_name: screenshot_2025_10_22_at_3_36_06_pm_png_849.png
+                    content_type: image/png
+                    name: Screenshot 2025-10-22 at 3.36.06 PM.png
+                    description: null
+                    views_number: 0
+                    file_size: 132720
+                    downloads_number: 0
+                    created_at: '2025-11-06 14:04:58'
+                    updated_at: '2025-11-06 14:04:58'
+                    original_filename: screenshot_2025_10_22_at_3_36_06_pm_png.png
+                    extension: png
+                    file_identifier: screenshot_2025_10_22_at_3_36_06_pm_png.png
+                    url: /uploads/uploaded_file/file/849/screenshot_2025_10_22_at_3_36_06_pm_png.png
+                    upload_type: device
+                    creator_name: null
+                    download_url: /uploads/uploaded_file/file/849/screenshot_2025_10_22_at_3_36_06_pm_png.png
+                properties:
+                  id:
+                    type: integer
+                  download_name:
+                    type: string
+                  content_type:
+                    type: string
+                  name:
+                    type: string
+                  views_number:
+                    type: integer
+                  file_size:
+                    type: integer
+                  downloads_number:
+                    type: integer
+                  created_at:
+                    type: string
+                  updated_at:
+                    type: string
+                  original_filename:
+                    type: string
+                  extension:
+                    type: string
+                  file_identifier:
+                    type: string
+                  url:
+                    type: string
+                  upload_type:
+                    type: string
+                  download_url:
+                    type: string
+                  description:
+                    type: string
+                    x-stoplight:
+                      id: 7vorshaykhbo4
+                  creator_name:
+                    type: string
+                    x-stoplight:
+                      id: mjisczsvzq6tv
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/ForbiddenError.yaml
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reasons:
+                    type: array
+                    items:
+                      type: string
+                x-examples:
+                  Example 1:
+                    reasons:
+                      - Invalid parent.
+              examples:
+                Example 1:
+                  value:
+                    possible_errors:
+                      - case: Invalid Parent
+                        example:
+                          reasons:
+                            - Invalid parent.
+                        description: Occurs when one or more parent IDs in the request do not exist.
+                      - case: File Name Too Long
+                        example:
+                          reasons:
+                            - File name is too long.
+                        description: Occurs when the uploaded file name exceeds the allowed character limit.
+                      - case: Validation Errors
+                        example:
+                          reasons:
+                            file:
+                              - is invalid
+                            name:
+                              - can't be blank
+                        description: Occurs when file validation fails due to missing or invalid parameters.
+      description: Upload files to the E-Library of multiple parents simultaneously
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              x-examples:
+                Example 1:
+                  uploaded_files:
+                    - name: string
+                      file: string (Base64 encoded)
+                  parent_ids:
+                    - 1
+                    - 2
+                    - 3
+              properties:
+                uploaded_files:
+                  type: object
+                  properties:
+                    '':
+                      type: string
+                      x-stoplight:
+                        id: iu54suk1r2vmc
+                    file:
+                      type: string
+                      x-stoplight:
+                        id: ulsrpd8aqkgld
+                      format: binary
+                parent_ids:
+                  type: array
+                  items:
+                    type: integer
+components:
+  schemas: {}
