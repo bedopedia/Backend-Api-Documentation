@@ -123,34 +123,27 @@ paths:
       description: Upload files to the E-Library of multiple parents simultaneously
       requestBody:
         content:
-          application/json:
+          multipart/form-data:
             schema:
               type: object
-              x-examples:
-                Example 1:
-                  uploaded_files:
-                    - name: string
-                      file: string (Base64 encoded)
-                  parent_ids:
-                    - 1
-                    - 2
-                    - 3
               properties:
-                uploaded_files:
+                uploaded_file:
                   type: object
                   properties:
-                    '':
+                    name:
                       type: string
-                      x-stoplight:
-                        id: iu54suk1r2vmc
                     file:
                       type: string
-                      x-stoplight:
-                        id: ulsrpd8aqkgld
-                      format: binary
                 parent_ids:
                   type: array
                   items:
                     type: integer
+              x-examples:
+                Example 1:
+                  uploaded_file:
+                    name: string
+                    file: string (binary)
+                  parent_ids:
+                    - 0
 components:
   schemas: {}
