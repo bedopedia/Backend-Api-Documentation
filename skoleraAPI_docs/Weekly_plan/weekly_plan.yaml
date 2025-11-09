@@ -300,34 +300,6 @@ paths:
       responses:
         '204':
           description: No Content
-  /api/upload_file:
-    post:
-      summary: ''
-      operationId: post-api-upload_file
-      responses:
-        '201':
-          description: Created
-          content:
-            application/json:
-              schema:
-                type: object
-                properties:
-                  id:
-                    type: integer
-                  name:
-                    type: string
-                  extension:
-                    type: string
-                  download_url:
-                    type: string
-                x-examples:
-                  Example 1:
-                    id: 1
-                    name: x.pdf
-                    extension: pdf
-                    download_url: 'https://example.com/uploads/x.pdf'
-      requestBody:
-        content: {}
   /api/daily_notes:
     post:
       summary: ''
