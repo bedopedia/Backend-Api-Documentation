@@ -704,6 +704,8 @@ paths:
                     message: Only Admins and SuperAdmins can create grade bulks.
         '406':
           description: |-
+            SK000 → Missing parameters: sections or grading_periods
+
             SK001 → some grading periods/categories not assigned (no corresponding courses sent)
 
             SK002 → some no grading system assigned
@@ -711,6 +713,10 @@ paths:
             SK003 → some grading period/sub-period locked
 
             SK004 → some grading periods/categories does not exist
+
+            SK005 → Missing mandatory default_value
+
+            SK006 → Category not found for id
           content:
             application/json:
               schema:
