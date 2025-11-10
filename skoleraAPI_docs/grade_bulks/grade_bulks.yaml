@@ -715,8 +715,6 @@ paths:
             SK004 → some grading periods/categories does not exist
 
             SK005 → Missing mandatory default_value
-
-            SK006 → Category not found for id
           content:
             application/json:
               schema:
