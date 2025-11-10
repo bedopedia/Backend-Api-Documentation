@@ -670,6 +670,22 @@ paths:
       responses:
         '200':
           description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                  bulk_number:
+                    type: integer
+                  created_count:
+                    type: integer
+                x-examples:
+                  Example 1:
+                    message: Grade bulks created successfully.
+                    bulk_number: 1
+                    created_count: 5
         '401':
           description: Unauthorized
           content:
@@ -688,6 +704,8 @@ paths:
                     message: Only Admins and SuperAdmins can create grade bulks.
         '406':
           description: |-
+            SK000 → Missing parameters: sections or grading_periods
+
             SK001 → some grading periods/categories not assigned (no corresponding courses sent)
 
             SK002 → some no grading system assigned
@@ -695,6 +713,8 @@ paths:
             SK003 → some grading period/sub-period locked
 
             SK004 → some grading periods/categories does not exist
+
+            SK005 → Missing mandatory default_value
           content:
             application/json:
               schema:
@@ -805,6 +825,10 @@ paths:
                   type: boolean
                   x-stoplight:
                     id: 9cf6nq68fjbff
+                skip_validation:
+                  type: boolean
+                  x-stoplight:
+                    id: hcn2dfpnz6tns
               required:
                 - sections
                 - grading_periods
