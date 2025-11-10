@@ -209,6 +209,26 @@ paths:
           in: query
           description: Filter by Category ID
           name: 'q[category_id]'
+        - schema:
+            type: string
+          in: query
+          name: 'q[name]'
+        - schema:
+            type: string
+          in: query
+          name: 'q[created_by_id]'
+        - schema:
+            type: string
+          in: query
+          name: 'q[created_at]'
+        - schema:
+            type: boolean
+          in: query
+          name: 'q[hide_from_students_parents]'
+        - schema:
+            type: boolean
+          in: query
+          name: 'q[hide_from_users]'
   /grade_bulks/delete_all:
     post:
       summary: ''
