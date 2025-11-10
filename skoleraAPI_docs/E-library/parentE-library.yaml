@@ -18,65 +18,84 @@ paths:
           content:
             application/json:
               schema:
-                type: object
+                type: array
                 x-examples:
                   Example 1:
-                    id: 849
-                    download_name: screenshot_2025_10_22_at_3_36_06_pm_png_849.png
-                    content_type: image/png
-                    name: Screenshot 2025-10-22 at 3.36.06 PM.png
-                    description: null
-                    views_number: 0
-                    file_size: 132720
-                    downloads_number: 0
-                    created_at: '2025-11-06 14:04:58'
-                    updated_at: '2025-11-06 14:04:58'
-                    original_filename: screenshot_2025_10_22_at_3_36_06_pm_png.png
-                    extension: png
-                    file_identifier: screenshot_2025_10_22_at_3_36_06_pm_png.png
-                    url: /uploads/uploaded_file/file/849/screenshot_2025_10_22_at_3_36_06_pm_png.png
-                    upload_type: device
-                    creator_name: null
-                    download_url: /uploads/uploaded_file/file/849/screenshot_2025_10_22_at_3_36_06_pm_png.png
-                properties:
-                  id:
-                    type: integer
-                  download_name:
-                    type: string
-                  content_type:
-                    type: string
-                  name:
-                    type: string
-                  views_number:
-                    type: integer
-                  file_size:
-                    type: integer
-                  downloads_number:
-                    type: integer
-                  created_at:
-                    type: string
-                  updated_at:
-                    type: string
-                  original_filename:
-                    type: string
-                  extension:
-                    type: string
-                  file_identifier:
-                    type: string
-                  url:
-                    type: string
-                  upload_type:
-                    type: string
-                  download_url:
-                    type: string
-                  description:
-                    type: string
-                    x-stoplight:
-                      id: 7vorshaykhbo4
-                  creator_name:
-                    type: string
-                    x-stoplight:
-                      id: mjisczsvzq6tv
+                    - id: 930
+                      download_name: screenshot_2025_10_22_at_1_28_52_pm_png_930.png
+                      content_type: image/png
+                      name: Screenshot 2025-10-22 at 1.28.52 PM.png
+                      description: null
+                      views_number: 0
+                      file_size: 304360
+                      downloads_number: 0
+                      created_at: '2025-11-10T15:07:40Z'
+                      updated_at: '2025-11-10T15:07:40Z'
+                      original_filename: screenshot_2025_10_22_at_1_28_52_pm_png.png
+                      extension: png
+                      file_identifier: screenshot_2025_10_22_at_1_28_52_pm_png.png
+                      url: 'https://m-skolera-demo-bucket.s3.eu-central-003.backblazeb2.com/uploads/uploaded_file/file/930/screenshot_2025_10_22_at_1_28_52_pm_png.png'
+                      upload_type: device
+                      download_url: 'https://m-skolera-demo-bucket.s3.eu-central-003.backblazeb2.com/uploads/uploaded_file/file/930/screenshot_2025_10_22_at_1_28_52_pm_png.png?response-content-disposition=attachment'
+                      creator_name: null
+                    - id: 931
+                      download_name: screenshot_2025_10_22_at_1_28_52_pm_png_931.png
+                      content_type: image/png
+                      name: Screenshot 2025-10-22 at 1.28.52 PM.png
+                      description: null
+                      views_number: 0
+                      file_size: 304360
+                      downloads_number: 0
+                      created_at: '2025-11-10T15:07:40Z'
+                      updated_at: '2025-11-10T15:07:40Z'
+                      original_filename: screenshot_2025_10_22_at_1_28_52_pm_png.png
+                      extension: png
+                      file_identifier: screenshot_2025_10_22_at_1_28_52_pm_png.png
+                      url: 'https://m-skolera-demo-bucket.s3.eu-central-003.backblazeb2.com/uploads/uploaded_file/file/931/screenshot_2025_10_22_at_1_28_52_pm_png.png'
+                      upload_type: device
+                      download_url: 'https://m-skolera-demo-bucket.s3.eu-central-003.backblazeb2.com/uploads/uploaded_file/file/931/screenshot_2025_10_22_at_1_28_52_pm_png.png?response-content-disposition=attachment'
+                      creator_name: null
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    download_name:
+                      type: string
+                    content_type:
+                      type: string
+                    name:
+                      type: string
+                    views_number:
+                      type: integer
+                    file_size:
+                      type: integer
+                    downloads_number:
+                      type: integer
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                    original_filename:
+                      type: string
+                    extension:
+                      type: string
+                    file_identifier:
+                      type: string
+                    url:
+                      type: string
+                    upload_type:
+                      type: string
+                    download_url:
+                      type: string
+                    creator_name:
+                      type: string
+                      x-stoplight:
+                        id: en3aypacrcw7t
+                    description:
+                      type: string
+                      x-stoplight:
+                        id: e5cff8xc2xq9o
         '403':
           description: Forbidden
           content:
