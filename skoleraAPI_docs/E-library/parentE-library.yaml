@@ -1,0 +1,168 @@
+openapi: 3.1.0
+x-stoplight:
+  id: gic95dnt22pta
+info:
+  title: parentE-library
+  version: '1.0'
+servers:
+  - url: 'http://localhost:3000'
+paths:
+  /parents/upload_files:
+    parameters: []
+    post:
+      summary: ''
+      operationId: post
+      responses:
+        '200':
+          description: ''
+          content:
+            application/json:
+              schema:
+                type: array
+                x-examples:
+                  Example 1:
+                    - id: 930
+                      download_name: screenshot_2025_10_22_at_1_28_52_pm_png_930.png
+                      content_type: image/png
+                      name: Screenshot 2025-10-22 at 1.28.52 PM.png
+                      description: null
+                      views_number: 0
+                      file_size: 304360
+                      downloads_number: 0
+                      created_at: '2025-11-10T15:07:40Z'
+                      updated_at: '2025-11-10T15:07:40Z'
+                      original_filename: screenshot_2025_10_22_at_1_28_52_pm_png.png
+                      extension: png
+                      file_identifier: screenshot_2025_10_22_at_1_28_52_pm_png.png
+                      url: 'https://m-skolera-demo-bucket.s3.eu-central-003.backblazeb2.com/uploads/uploaded_file/file/930/screenshot_2025_10_22_at_1_28_52_pm_png.png'
+                      upload_type: device
+                      download_url: 'https://m-skolera-demo-bucket.s3.eu-central-003.backblazeb2.com/uploads/uploaded_file/file/930/screenshot_2025_10_22_at_1_28_52_pm_png.png?response-content-disposition=attachment'
+                      creator_name: null
+                    - id: 931
+                      download_name: screenshot_2025_10_22_at_1_28_52_pm_png_931.png
+                      content_type: image/png
+                      name: Screenshot 2025-10-22 at 1.28.52 PM.png
+                      description: null
+                      views_number: 0
+                      file_size: 304360
+                      downloads_number: 0
+                      created_at: '2025-11-10T15:07:40Z'
+                      updated_at: '2025-11-10T15:07:40Z'
+                      original_filename: screenshot_2025_10_22_at_1_28_52_pm_png.png
+                      extension: png
+                      file_identifier: screenshot_2025_10_22_at_1_28_52_pm_png.png
+                      url: 'https://m-skolera-demo-bucket.s3.eu-central-003.backblazeb2.com/uploads/uploaded_file/file/931/screenshot_2025_10_22_at_1_28_52_pm_png.png'
+                      upload_type: device
+                      download_url: 'https://m-skolera-demo-bucket.s3.eu-central-003.backblazeb2.com/uploads/uploaded_file/file/931/screenshot_2025_10_22_at_1_28_52_pm_png.png?response-content-disposition=attachment'
+                      creator_name: null
+                items:
+                  type: object
+                  properties:
+                    id:
+                      type: integer
+                    download_name:
+                      type: string
+                    content_type:
+                      type: string
+                    name:
+                      type: string
+                    views_number:
+                      type: integer
+                    file_size:
+                      type: integer
+                    downloads_number:
+                      type: integer
+                    created_at:
+                      type: string
+                    updated_at:
+                      type: string
+                    original_filename:
+                      type: string
+                    extension:
+                      type: string
+                    file_identifier:
+                      type: string
+                    url:
+                      type: string
+                    upload_type:
+                      type: string
+                    download_url:
+                      type: string
+                    creator_name:
+                      type: string
+                      x-stoplight:
+                        id: en3aypacrcw7t
+                    description:
+                      type: string
+                      x-stoplight:
+                        id: e5cff8xc2xq9o
+        '403':
+          description: Forbidden
+          content:
+            application/json:
+              schema:
+                $ref: ../../Data/ForbiddenError.yaml
+        '422':
+          description: Unprocessable Entity (WebDAV)
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reasons:
+                    type: array
+                    items:
+                      type: string
+                x-examples:
+                  Example 1:
+                    reasons:
+                      - Invalid parent.
+              examples:
+                Example 1:
+                  value:
+                    possible_errors:
+                      - case: Invalid Parent
+                        example:
+                          reasons:
+                            - Invalid parent.
+                        description: Occurs when one or more parent IDs in the request do not exist.
+                      - case: File Name Too Long
+                        example:
+                          reasons:
+                            - File name is too long.
+                        description: Occurs when the uploaded file name exceeds the allowed character limit.
+                      - case: Validation Errors
+                        example:
+                          reasons:
+                            file:
+                              - is invalid
+                            name:
+                              - can't be blank
+                        description: Occurs when file validation fails due to missing or invalid parameters.
+      description: Upload files to the E-Library of multiple parents simultaneously
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                uploaded_file:
+                  type: object
+                  properties:
+                    name:
+                      type: string
+                    file:
+                      type: string
+                parent_ids:
+                  type: array
+                  items:
+                    type: integer
+              x-examples:
+                Example 1:
+                  uploaded_file:
+                    name: string
+                    file: string (binary)
+                  parent_ids:
+                    - 0
+components:
+  schemas: {}
